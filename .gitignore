@@ -1,5 +1,8 @@
 *.class
 
+target/
+data/random/random-500k.csv
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
