@@ -26,7 +26,7 @@ public class DemoSparkCsvFileJavaFXChart extends Application{
     
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setTitle("Jzy3d | JavaFX | Spark");
+        stage.setTitle("Spark | Jzy3d | JavaFX");
         stage.setWidth(500);
         stage.setHeight(500);
 

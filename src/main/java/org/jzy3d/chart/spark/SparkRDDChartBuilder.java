@@ -20,6 +20,7 @@ import org.jzy3d.plot3d.primitives.Shape;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.jzy3d.plot3d.rendering.view.View;
+import org.jzy3d.plot3d.rendering.view.ViewportMode;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 
 public class SparkRDDChartBuilder {
@@ -73,11 +74,12 @@ public class SparkRDDChartBuilder {
     /* */
     
     /**
-     * Apply layout suitable for 2d charts (disable Z axis display, enable top view)
+     * Apply layout suitable for 2d charts (disable Z axis display, enable top view, etc)
      */
     public void layout2d() {
         View view = chart.getView();
         view.setViewPositionMode(ViewPositionMode.TOP);
+        view.getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
 
         IAxeLayout axe = chart.getAxeLayout();
         axe.setZAxeLabelDisplayed(false);
