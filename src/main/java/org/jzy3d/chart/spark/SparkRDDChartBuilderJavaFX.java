@@ -40,18 +40,20 @@ public abstract class SparkRDDChartBuilderJavaFX extends SparkRDDChartBuilder {
     }
 
     protected void show(Stage stage, AWTChart chart) {
+        // Binding 1 : Chart -> JavaFX
+        // The view will be notified if the chart redraws 
+        // for internal reason (scene graph update, etc)
         ImageView imageView = factory.bindImageView(chart);
 
-        // JavaFX
+        // JavaFX container
         StackPane pane = new StackPane();
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
         pane.getChildren().add(imageView);
 
+        // Binding 2 : JavaFX -> Chart
+        // Listening to JavaFX size change to trigger repaint
         factory.addSceneSizeChangedListener(chart, scene);
-
-        stage.setWidth(500);
-        stage.setHeight(500);
     }
 }

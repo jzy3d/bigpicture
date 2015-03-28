@@ -27,11 +27,14 @@ public class DemoSparkCsvFileJavaFXChart extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("Jzy3d | JavaFX | Spark");
+        stage.setWidth(500);
+        stage.setHeight(500);
 
         new SparkRDDChartBuilderJavaFX(){
             @Override
             public void loadDataAndBuildScene() {
                 layout2d();
+                
                 JavaRDD<Coord3d> coordinates = SparkChartIO.csv3d("data/random/random-4000.csv");
                 makeScatterSerie2d(coordinates);
             }
