@@ -5,7 +5,7 @@ The aim of this library is to provide connectors to big data tools (Spark, Hive,
 
 Jzy3d, based on JOGL, enables Java applications to use OpenGL to make best usage of computer's GPU capabilities (speed, memory).
 
-See demos in package org.jzy3d.demos.spark
+See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/src/main/java/org/jzy3d/demos/spark/">org.jzy3d.demos.spark</a>
 
 
 
