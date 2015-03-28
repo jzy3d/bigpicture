@@ -32,26 +32,9 @@ public class DemoSparkCsvFileJavaFXChart extends Application{
             @Override
             public void loadDataAndBuildScene() {
                 layout2d();
-                JavaRDD<Coord3d> coordinates = loadData();
+                JavaRDD<Coord3d> coordinates = SparkChartIO.csv3d("data/random/random-4000.csv");
                 makeScatterSerie2d(coordinates);
             }
-
-            public JavaRDD<Coord3d> loadData() {
-                String file  = "data/random/random-4000.csv";
-                JavaRDD<Coord3d> items = SparkChartIO.csv3d(file);
-                return items;
-            }
-
-            public void makeScatterSerie2d(JavaRDD<Coord3d> items) {
-                Serie2d.Type type = Serie2d.Type.SCATTER_POINTS;
-                Serie2d serie = addSerie2d(items, "", type);
-                infos(serie);
-            }
-
-            private void infos(Serie2d serie) {
-                ScatterPointSerie2d s = (ScatterPointSerie2d)serie;
-                System.out.println("Scatter bounds : " + s.getScatter().getBounds());
-            }
-        }.onStart(stage);
+        }.onStart(stage); // run actual data loading and chart generation
     }
 }

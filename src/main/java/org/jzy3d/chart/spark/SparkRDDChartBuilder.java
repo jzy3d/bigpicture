@@ -12,6 +12,7 @@ import org.jzy3d.javafx.JavaFXChartFactory;
 import org.jzy3d.maths.Coord2d;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.maths.Range;
+import org.jzy3d.plot2d.primitives.ScatterPointSerie2d;
 import org.jzy3d.plot2d.primitives.Serie2d;
 import org.jzy3d.plot3d.builder.Builder;
 import org.jzy3d.plot3d.builder.Mapper;
@@ -26,30 +27,47 @@ import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 public class SparkRDDChartBuilder {
     protected JavaFXChartFactory factory = new JavaFXChartFactory();
     protected AWTChart chart;
+    protected SparkChartOptions options;
+
+    public void makeScatterSerie2d(JavaRDD<Coord3d> items) {
+        Serie2d.Type type = Serie2d.Type.SCATTER_POINTS;
+        Serie2d serie = addSerie2d(items, "", type);
+        infosScatterPointSerie(serie);
+    }
+
+    private void infosScatterPointSerie(Serie2d serie) {
+        ScatterPointSerie2d s = (ScatterPointSerie2d)serie;
+        System.out.println("Scatter bounds : " + s.getScatter().getBounds());
+    }
+    
+    public void makeLineSerie2d(JavaRDD<Coord3d> items) {
+        Serie2d.Type type = Serie2d.Type.LINE;
+        addSerie2d(items, "", type);
+    }
+    
+    /* */
 
     protected Serie2d addSerie2d(final JavaRDD<Coord3d> coords, final String name, final Serie2d.Type type) {
         final Serie2d serie = factory.newSerie(name, type);
         serie.setWidth(1);
-        draw(coords, name, type, serie);
+        fillSerie(coords, name, type, serie);
         chart.addDrawable(serie.getDrawable());
-        //drawInThread();
         return serie;
     }
     
-    protected void draw(final JavaRDD<Coord3d> coords, final String name, final Serie2d.Type type, final Serie2d serie) {
+    protected void fillSerie(final JavaRDD<Coord3d> coords, final String name, final Serie2d.Type type, final Serie2d serie) {
         for(Coord3d item: coords.collect()){
             Coord2d coord = new Coord2d(item.x, item.y);
             serie.add(coord, Color.BLUE);
-            //System.out.println(coord);
         }
         System.out.println("added " + coords.count() + " points in serie " + name + " " + type);
     }
 
-    protected void drawInThread(final JavaRDD<Coord3d> coords, final String name, final Serie2d.Type type, final Serie2d serie) {
+    protected void fillSerieInThread(final JavaRDD<Coord3d> coords, final String name, final Serie2d.Type type, final Serie2d serie) {
         Executor e = Executors.newFixedThreadPool(2);
         e.execute(new Runnable(){
             public void run() {
-                draw(coords, name, type, serie);
+                fillSerie(coords, name, type, serie);
             }
         });
     }
@@ -70,8 +88,6 @@ public class SparkRDDChartBuilder {
     
     protected AWTChart chart(JavaFXChartFactory factory, String toolkit) {
         Quality quality = Quality.Advanced;
-        // quality.setSmoothPolygon(true);
-        // quality.setAnimated(true);
         AWTChart chart = (AWTChart) factory.newChart(quality, toolkit);
         return chart;
     }
@@ -88,7 +104,6 @@ public class SparkRDDChartBuilder {
     }
     
     protected Shape surface(Mapper mapper, Range range, int steps) {
-        // Create the object to represent the function over the given range.
         final Shape surface = Builder.buildOrthonormal(mapper, range, steps);
         surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new Color(1, 1, 1, .5f)));
         surface.setFaceDisplayed(true);
