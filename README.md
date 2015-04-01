@@ -1,4 +1,4 @@
-# jzy3d-bigviz
+# BigPicture
 Drawing BigData Charts
 
 The aim of this library is to provide connectors to big data tools (Spark, Hive, etc) to easily render large scatters, lines, surfaces in 2d or 3d charts relying on OpenGL rendering.
