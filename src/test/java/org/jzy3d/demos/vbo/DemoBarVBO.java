@@ -2,6 +2,8 @@ package org.jzy3d.demos.vbo;
 
 import java.util.List;
 
+import javax.media.opengl.GL;
+
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.controllers.keyboard.lights.AWTLightKeyController;
 import org.jzy3d.chart.controllers.keyboard.lights.NewtLightKeyController;
@@ -25,21 +27,14 @@ import org.jzy3d.plot3d.rendering.view.ViewportMode;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 
 /**
- * Shows a scatter built with Vertex Buffer Object, an efficient way of storing
- * geometry in GPU at program startup.
  * 
- * In contrast, drawable object that are neither of type {@link DrawableVBO} or
- * {@link CompileableComposite} will require that processor to send drawing
- * instructions to the GPU at <i>each</i> rendering call, thus implying useless work
- * for geometry that should not change in shape or color over time.
+ * http://www.songho.ca/opengl/gl_vbo.html
  * 
- * One can easily derive from {@link ListCoord3dVBOLoader} to support its
- * own datamodel rather than jzy3d {@link Coord3d} elements.
  * 
- * @author Martin Pernollet
- *
+ * http://www.felixgers.de/teaching/jogl/vertexBufferObject.html
+ * - verify VBO available
  */
-public class DemoScatterVBO {
+public class DemoBarVBO {
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
@@ -51,11 +46,12 @@ public class DemoScatterVBO {
         ColorMapper coloring = ScatterGenerator.coloring(coords);
 
         // Geometry
-        ScatterVBO scatter = new ScatterVBO(new ListCoord3dVBOLoader(coords, coloring));
+        BarVBO bars = new BarVBO(new RandomBarVBOLoader(100));
+        //scatter.setGeometry(GL.GL_LINE_STRIP);
         //scatter.rotator(false); 
 
         // Chart
-        chart(scatter);
+        chart(bars);
     }
 
     public static Chart chart(AbstractDrawable drawable) {
@@ -66,8 +62,7 @@ public class DemoScatterVBO {
         chart.getView().getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
         chart.addMouseController();
         chart.open("VBO Scatter demo", 1000, 1000);
-        
-        layout2d(chart);
+        //layout2d(chart);
         return chart;
     }
     
@@ -75,7 +70,6 @@ public class DemoScatterVBO {
         View view = chart.getView();
         view.setViewPositionMode(ViewPositionMode.TOP);
         view.getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
-
         IAxeLayout axe = chart.getAxeLayout();
         axe.setZAxeLabelDisplayed(false);
         axe.setTickLineDisplayed(false);

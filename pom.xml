@@ -49,6 +49,13 @@
 			<version>1.3.0</version>
 		</dependency>
 
+		<!-- HBase -->
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-client</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 		<!-- Hive -->
 		<dependency>
 			<groupId>org.apache.hive</groupId>
