@@ -41,17 +41,9 @@ public class DemoBarVBO {
     public static void main(String[] args) {
         float ratio = 5f;
         int size = (int) (ratio * MILION);
-
-        // Data
         List<Coord3d> coords = ScatterGenerator.getScatter(size);
         ColorMapper coloring = ScatterGenerator.coloring(coords);
-
-        // Geometry
         BarVBO bars = new BarVBO(new RandomBarVBOLoader(100));
-        //bars.setGeometry(GL.GL_LINE_LOOP);
-        bars.rotator(true); 
-
-        // Chart
         chart(bars);
     }
 
