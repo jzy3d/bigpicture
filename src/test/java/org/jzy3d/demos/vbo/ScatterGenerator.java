@@ -1,4 +1,4 @@
-package org.jzy3d.demos.spark;
+package org.jzy3d.demos.vbo;
 
 import static java.lang.Math.E;
 import static java.lang.Math.cos;
@@ -15,7 +15,7 @@ import org.jzy3d.colors.colormaps.ColorMapRainbow;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.maths.Range;
 
-public class Generator {
+public class ScatterGenerator {
     public static List<Coord3d> getScatter(int size) {
         List<Coord3d> coords = new ArrayList<Coord3d>(size);
         Random r = new Random();

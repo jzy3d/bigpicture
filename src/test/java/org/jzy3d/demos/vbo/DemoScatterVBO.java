@@ -1,4 +1,4 @@
-package org.jzy3d.demos.spark;
+package org.jzy3d.demos.vbo;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.jzy3d.colors.Color;
 import org.jzy3d.colors.ColorMapper;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.CompileableComposite;
+import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
 import org.jzy3d.plot3d.primitives.vbo.DrawableVBO;
 import org.jzy3d.plot3d.primitives.vbo.ListCoord3dVBOLoader;
 import org.jzy3d.plot3d.primitives.vbo.ScatterVBO;
@@ -17,7 +18,9 @@ import org.jzy3d.plot3d.rendering.canvas.CanvasAWT;
 import org.jzy3d.plot3d.rendering.canvas.CanvasNewtAwt;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.jzy3d.plot3d.rendering.lights.Light;
+import org.jzy3d.plot3d.rendering.view.View;
 import org.jzy3d.plot3d.rendering.view.ViewportMode;
+import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 
 /**
  * Shows a scatter built with Vertex Buffer Object, an efficient way of storing
@@ -28,7 +31,7 @@ import org.jzy3d.plot3d.rendering.view.ViewportMode;
  * instructions to the GPU at <i>each</i> rendering call, thus implying useless work
  * for geometry that should not change in shape or color over time.
  * 
- * One can easily creates its {@link ListCoord3dVBOLoader} to support its
+ * One can easily derive from {@link ListCoord3dVBOLoader} to support its
  * own datamodel rather than jzy3d {@link Coord3d} elements.
  * 
  * @author Martin Pernollet
@@ -38,16 +41,16 @@ public class DemoScatterVBO {
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
-        float ratio = .5f;
+        float ratio = 5f;
         int size = (int) (ratio * MILION);
 
         // Data
-        List<Coord3d> coords = Generator.getScatter(size);
-        ColorMapper coloring = Generator.coloring(coords);
+        List<Coord3d> coords = ScatterGenerator.getScatter(size);
+        ColorMapper coloring = ScatterGenerator.coloring(coords);
 
         // Geometry
         ScatterVBO scatter = new ScatterVBO(new ListCoord3dVBOLoader(coords, coloring));
-        scatter.rotator(false); 
+        //scatter.rotator(false); 
 
         // Chart
         chart(scatter);
@@ -63,8 +66,20 @@ public class DemoScatterVBO {
         chart.getAxeLayout().setMainColor(Color.WHITE);
         chart.getView().getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
         chart.addMouseController();
-        chart.open("VBO Scatter demo", 800, 800);
+        chart.open("VBO Scatter demo", 1000, 1000);
+        
+        layout2d(chart);
         return chart;
+    }
+    
+    public static void layout2d(Chart chart) {
+        View view = chart.getView();
+        view.setViewPositionMode(ViewPositionMode.TOP);
+        view.getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
+
+        IAxeLayout axe = chart.getAxeLayout();
+        axe.setZAxeLabelDisplayed(false);
+        axe.setTickLineDisplayed(false);
     }
 
     public static Light addLight(Chart chart, Coord3d position, Color ambiantColor, Color specularColor, Color diffuseColor) {
