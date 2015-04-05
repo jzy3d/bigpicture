@@ -47,16 +47,13 @@ public class DemoScatterVBO {
 
         // Geometry
         ScatterVBO scatter = new ScatterVBO(new ListCoord3dVBOLoader(coords, coloring));
-        //scatter.setColor(Color.BLUE);
         scatter.rotator(false); 
-
 
         // Chart
         chart(scatter);
     }
 
-
-    private static Chart chart(ScatterVBO scatter) {
+    public static Chart chart(ScatterVBO scatter) {
         Quality quality = Quality.Intermediate;
         Chart chart = AWTChartComponentFactory.chart(quality, "awt");
         chart.getScene().getGraph().add(scatter);
@@ -69,7 +66,6 @@ public class DemoScatterVBO {
         chart.open("VBO Scatter demo", 800, 800);
         return chart;
     }
-
 
     public static Light addLight(Chart chart, Coord3d position, Color ambiantColor, Color specularColor, Color diffuseColor) {
         Light light = new Light();
@@ -85,6 +81,4 @@ public class DemoScatterVBO {
             chart.getCanvas().addKeyController(new NewtLightKeyController(chart, light));
         return light;
     }
-
-    
 }
