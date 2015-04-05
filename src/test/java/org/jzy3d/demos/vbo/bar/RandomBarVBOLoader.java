@@ -65,15 +65,20 @@ public class RandomBarVBOLoader implements IGLLoader<DrawableVBO> {
         
         int size = 0;
         for (int i=0; i<n; i++) {
-            indices.put(size++);
             
-            float v = (float)Math.random()*100;
-            float d = (float)Math.random()*1;
-            Coord3d c1 = new Coord3d(i, d, 0);
-            Coord3d c2 = new Coord3d(i, d, v);
+            float z = (float)Math.random()*100;
+            float y = (float)Math.random()*1;
+
+            indices.put(size++);
+            Coord3d c1 = new Coord3d(i, 0, 0);
             putCoord(vertices, c1);
-            putCoord(vertices, c2);
+            putColor(vertices, Color.RED);
             bounds.add(c1);
+            
+            indices.put(size++);
+            Coord3d c2 = new Coord3d(i, y, z);
+            putCoord(vertices, c2);
+            putColor(vertices, Color.RED);
             bounds.add(c2);
             
             /*if(colors!=null){
@@ -84,28 +89,6 @@ public class RandomBarVBOLoader implements IGLLoader<DrawableVBO> {
         vertices.rewind();
         indices.rewind();
     }
-/*
-    protected void fillBuffersWithCollection(DrawableVBO drawable, Collection<Coord3d> coordinates, FloatBuffer vertices, IntBuffer indices, BoundingBox3d bounds) {
-        fillBuffersWithCollection(drawable, coordinates, null, vertices, indices, bounds);
-    }
-
-    protected void fillBuffersWithCollection(DrawableVBO drawable, Collection<Coord3d> coordinates, ColorMapper colors, FloatBuffer vertices, IntBuffer indices, BoundingBox3d bounds) {
-        drawable.setHasColorBuffer(colors!=null);
-        
-        int size = 0;
-        for (Coord3d c : coordinates) {
-            indices.put(size++);
-            putCoord(vertices, c);
-            bounds.add(c);
-            
-            if(colors!=null){
-                putColor(vertices, colors.getColor(c));
-            }
-        }
-        vertices.rewind();
-        indices.rewind();
-    }*/
-
     
     // TODO to abstract vbo loader
     protected void putCoord(FloatBuffer vertices, Coord3d c) {
@@ -139,7 +122,7 @@ public class RandomBarVBOLoader implements IGLLoader<DrawableVBO> {
             verticeBufferSize = n * (dimension * 2) * geometrysize;// *2 color
         }
 
-        verticeBufferSize = n * (dimension ) * geometrysize;// *2 lines
+        verticeBufferSize = n * (dimension *2) * geometrysize;// *2 lines
 
         
         return verticeBufferSize;
@@ -157,7 +140,7 @@ public class RandomBarVBOLoader implements IGLLoader<DrawableVBO> {
         else if (drawable.getGeometry() == GL.GL_TRIANGLES) {
             geomsize = 3;
         }
-        return geomsize;
+        return 2;//geomsize;
     }
 
 }

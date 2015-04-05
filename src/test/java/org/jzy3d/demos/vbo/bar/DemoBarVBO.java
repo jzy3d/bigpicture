@@ -43,7 +43,7 @@ public class DemoBarVBO {
         int size = (int) (ratio * MILION);
         List<Coord3d> coords = ScatterGenerator.getScatter(size);
         ColorMapper coloring = ScatterGenerator.coloring(coords);
-        BarVBO bars = new BarVBO(new RandomBarVBOLoader(100));
+        BarVBO bars = new BarVBO(new RandomBarVBOLoader(10000));
         chart(bars);
     }
 
@@ -55,7 +55,7 @@ public class DemoBarVBO {
         chart.getView().getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
         chart.addMouseController();
         chart.open("VBO Scatter demo", 1000, 1000);
-        //layout2d(chart);
+        layout2d(chart);
         return chart;
     }
     
