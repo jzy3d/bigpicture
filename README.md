@@ -97,3 +97,105 @@ public class DemoSparkCsvFileJavaFXChart extends Application{
 ```
 
 <img src="doc/images/scatter-5k-2d.png"/>
+
+## Run
+
+```
+git clone git@github.com:jzy3d/bigpicture.git
+cd bigpicture
+mvn install
+```
+
+Using POM file
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>jzy3d</groupId>
+	<artifactId>jzy3d-bigpicture</artifactId>
+	<version>0.9.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>BigPicture</name>
+	<url>https://github.com/jzy3d/bigpicture</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>Spark repository</id>
+			<url>http://www.sparkjava.com/nexus/content/repositories/spark/</url>
+		</repository>
+		<repository>
+			<id>jzy3d-snapshots</id>
+			<name>Jzy3d Snapshots</name>
+			<url>http://www.jzy3d.org/maven/snapshots</url>
+		</repository>
+		<repository>
+			<id>jzy3d-releases</id>
+			<name>Jzy3d Snapshots</name>
+			<url>http://www.jzy3d.org/maven/releases</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<!-- Spark -->
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-streaming_2.10</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.11</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-mllib_2.10</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
+		<!-- Hive -->
+		<dependency>
+			<groupId>org.apache.hive</groupId>
+			<artifactId>hive-jdbc</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hive</groupId>
+			<artifactId>hive-cli</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hive</groupId>
+			<artifactId>hive-cli</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+		<!-- Jzy3d -->
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>jzy3d-api</artifactId>
+			<version>0.9.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jzy3d</groupId>
+			<artifactId>jzy3d-javafx</artifactId>
+			<version>0.9.2-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Utils -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
+```
