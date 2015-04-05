@@ -7,45 +7,16 @@ Jzy3d, based on JOGL, enables Java applications to use OpenGL to make best usage
 
 ## Demos
 
-See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/src/test/java/org/jzy3d/demos/spark/">org.jzy3d.demos.spark</a>
+See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/src/test/java/org/jzy3d/demos/spark/">org.jzy3d.demos</a>
 
-
-### Spark chart for a JavaFX application
-
-Create a Spark Java RDD containing coordinates given by a CSV file, and show a 2D scatter plot with a uniform color in a JavaFX application.
-
-
-```java
-public class DemoSparkCsvFileJavaFXChart extends Application{
-    public static void main(String[] args) {
-        Application.launch(DemoSparkCsvFileJavaFXChart.class);
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        stage.setTitle("Spark | Jzy3d | JavaFX");
-        stage.setWidth(800);
-        stage.setHeight(800);
-
-        new SparkRDDChartBuilderJavaFX(){
-            @Override
-            public void loadDataAndBuildScene() {
-                layout2d();
-
-                JavaRDD<Coord3d> coordinates = SparkChartIO.csv3d("data/random/random-4000.csv");
-                makeScatterSerie2d(coordinates);
-            }
-        }.onStart(stage); // run actual data loading and chart generation
-    }
-}
-```
-
-<img src="doc/images/scatter-5k-2d.png"/>
 
 
 ### 5 milions points scatter plot
 
-Generate 5.000.000 points, setup a colormap, and build a GPU in-memory scatter plots rendering smoothly in an AWT window.
+Generate 5.000.000 points, setup a colormap, and build a VBO (GPU in-memory) scatter plots rendering smoothly in an AWT window.
+
+VBO allow to store the geometry once in GPU and then to trigger rendering on demand (viewpoint change, frame repaint, etc)
+
 
 ```java
 public class DemoScatterVBO {
@@ -92,3 +63,37 @@ public class DemoScatterVBO {
 
 #### 3D view
 <img src="doc/images/scatter-5G-3d.png"/>
+
+### Spark chart for a JavaFX application
+
+Create a Spark ```JavaRDD``` containing ```Coord3d``` given by a CSV file, and show a 2D scatter plot with a uniform color in a JavaFX application.
+
+This application makes use of a concurrent 2D scatter plot implementation not using GPU in-memory storage
+
+
+```java
+public class DemoSparkCsvFileJavaFXChart extends Application{
+    public static void main(String[] args) {
+        Application.launch(DemoSparkCsvFileJavaFXChart.class);
+    }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("Spark | Jzy3d | JavaFX");
+        stage.setWidth(800);
+        stage.setHeight(800);
+
+        new SparkRDDChartBuilderJavaFX(){
+            @Override
+            public void loadDataAndBuildScene() {
+                layout2d();
+
+                JavaRDD<Coord3d> coordinates = SparkChartIO.csv3d("data/random/random-4000.csv");
+                makeScatterSerie2d(coordinates);
+            }
+        }.onStart(stage); // run actual data loading and chart generation
+    }
+}
+```
+
+<img src="doc/images/scatter-5k-2d.png"/>
