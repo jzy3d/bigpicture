@@ -1,8 +1,6 @@
-package org.jzy3d.demos.vbo;
+package org.jzy3d.demos.vbo.scatter;
 
 import java.util.List;
-
-import javax.media.opengl.GL;
 
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.controllers.keyboard.lights.AWTLightKeyController;
@@ -27,14 +25,21 @@ import org.jzy3d.plot3d.rendering.view.ViewportMode;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 
 /**
+ * Shows a scatter built with Vertex Buffer Object, an efficient way of storing
+ * geometry in GPU at program startup.
  * 
- * http://www.songho.ca/opengl/gl_vbo.html
+ * In contrast, drawable object that are neither of type {@link DrawableVBO} or
+ * {@link CompileableComposite} will require that processor to send drawing
+ * instructions to the GPU at <i>each</i> rendering call, thus implying useless work
+ * for geometry that should not change in shape or color over time.
  * 
+ * One can easily derive from {@link ListCoord3dVBOLoader} to support its
+ * own datamodel rather than jzy3d {@link Coord3d} elements.
  * 
- * http://www.felixgers.de/teaching/jogl/vertexBufferObject.html
- * - verify VBO available
+ * @author Martin Pernollet
+ *
  */
-public class DemoBarVBO {
+public class DemoScatterVBO {
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
@@ -46,12 +51,11 @@ public class DemoBarVBO {
         ColorMapper coloring = ScatterGenerator.coloring(coords);
 
         // Geometry
-        BarVBO bars = new BarVBO(new RandomBarVBOLoader(100));
-        //scatter.setGeometry(GL.GL_LINE_STRIP);
-        //scatter.rotator(false); 
+        ScatterVBO scatter = new ScatterVBO(new ListCoord3dVBOLoader(coords, coloring));
+        scatter.rotator().start(); 
 
         // Chart
-        chart(bars);
+        chart(scatter);
     }
 
     public static Chart chart(AbstractDrawable drawable) {
@@ -70,6 +74,7 @@ public class DemoBarVBO {
         View view = chart.getView();
         view.setViewPositionMode(ViewPositionMode.TOP);
         view.getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
+
         IAxeLayout axe = chart.getAxeLayout();
         axe.setZAxeLabelDisplayed(false);
         axe.setTickLineDisplayed(false);

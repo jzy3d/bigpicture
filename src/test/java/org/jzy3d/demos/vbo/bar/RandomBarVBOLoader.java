@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo;
+package org.jzy3d.demos.vbo.bar;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -139,7 +139,7 @@ public class RandomBarVBOLoader implements IGLLoader<DrawableVBO> {
             verticeBufferSize = n * (dimension * 2) * geometrysize;// *2 color
         }
 
-        verticeBufferSize = n * (dimension * 2) * geometrysize;// *2 lines
+        verticeBufferSize = n * (dimension ) * geometrysize;// *2 lines
 
         
         return verticeBufferSize;
@@ -157,7 +157,7 @@ public class RandomBarVBOLoader implements IGLLoader<DrawableVBO> {
         else if (drawable.getGeometry() == GL.GL_TRIANGLES) {
             geomsize = 3;
         }
-        return 2;
+        return geomsize;
     }
 
 }

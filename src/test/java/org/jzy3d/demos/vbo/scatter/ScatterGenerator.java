@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo;
+package org.jzy3d.demos.vbo.scatter;
 
 import static java.lang.Math.E;
 import static java.lang.Math.cos;
