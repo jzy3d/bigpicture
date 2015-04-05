@@ -7,7 +7,7 @@ Jzy3d, based on JOGL, enables Java applications to use OpenGL to make best usage
 
 ## Demos
 
-See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/src/test/java/org/jzy3d/demos/spark/">org.jzy3d.demos</a>
+See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/src/test/java/org/jzy3d/demos/">org.jzy3d.demos</a>
 
 
 
@@ -68,7 +68,7 @@ public class DemoScatterVBO {
 
 Create a Spark ```JavaRDD``` containing ```Coord3d``` given by a CSV file, and show a 2D scatter plot with a uniform color in a JavaFX application.
 
-This application makes use of a concurrent 2D scatter plot implementation not using GPU in-memory storage
+Note : This application makes use of a simple 2D scatter plot implementation not using VBO (see 5 milions points scatter plot).
 
 
 ```java
