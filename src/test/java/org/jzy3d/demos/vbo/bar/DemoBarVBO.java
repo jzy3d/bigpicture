@@ -23,6 +23,5 @@ public class DemoBarVBO {
         BarVBO bars = new BarVBO(new VBOBuilderRandomBar(size));
         BigPicture.chart(bars, BigPicture.Type.dd);
         
-        //TicToc.T.tocShow("bar vbo with " + size + " points");
     }
 }

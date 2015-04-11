@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel;
+package org.jzy3d.demos.vbo.barmodel.generators;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.List;
 import org.jzy3d.demos.vbo.barmodel.model.KeyVal;
 import org.jzy3d.demos.vbo.barmodel.model.KeyVal.ValueGenerator;
 
-public class KeyValueGenerator {
+public class GeneratorKeyValue {
     public List<List<KeyVal<String, Float>>> vip(int nPivot, int nPivotCol, int nCpCcCat, int nCpCcCol) {
         List<List<KeyVal<String, Float>>> rows = new ArrayList<List<KeyVal<String, Float>>>(nPivot);
 
