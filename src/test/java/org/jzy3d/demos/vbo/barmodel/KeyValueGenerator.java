@@ -24,13 +24,17 @@ public class KeyValueGenerator {
         row.add(new KeyVal<String, Float>("0.pivot.id", (float) continuousId.value()));
 
         for (int i = 0; i < nPivotCol; i++) {
-            row.add(new KeyVal<String, Float>(i + "pivot.col" + i, randomValue.value()));
+            float value = randomValue.value();
+            value *= i * 100 * randomValue.value();
+            row.add(new KeyVal<String, Float>(i + "pivot.col" + i, value));
         }
 
         for (int i = 0; i < nCpCcCat; i++) {
             if (Math.random() > 0.33) {
                 for (int j = 0; j < nCpCcCol; j++) {
-                    row.add(new KeyVal<String, Float>(nPivotCol + "." + i + ".cpcc" + i + ".col" + j, randomValue.value()));
+                    float value = randomValue.value();
+                    value *= i*j*1000;
+                    row.add(new KeyVal<String, Float>(nPivotCol + "." + i + ".cpcc" + i + ".col" + j, value));
                 }
             }
         }

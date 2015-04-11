@@ -10,20 +10,29 @@ import org.jzy3d.demos.vbo.barmodel.color.KeyRankColorMapper;
 import org.jzy3d.demos.vbo.barmodel.model.KeyVal;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
+import org.jzy3d.plot3d.primitives.vbo.buffers.VBO;
 import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilder;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 
-public class VBOBuilderBarModel extends VBOBuilder {
+/**
+ * Building a VBO that represent a list of rows made of lists of
+ * {@link KeyVal}ue pairs.
+ * 
+ * Column are sorted in increasing alphabetical order along Y axis. Value (
+ * {@link KeyVal.val}) is ploted as a Z value for the current column.
+ * 
+ * @author Martin Pernollet
+ */
+public class VBOBuilderColumnDatabase extends VBOBuilder {
     List<List<KeyVal<String, Float>>> rows;
 
-    public VBOBuilderBarModel(List<List<KeyVal<String, Float>>> rows) {
+    public VBOBuilderColumnDatabase(List<List<KeyVal<String, Float>>> rows) {
         super();
         this.rows = rows;
     }
 
     public void load(GL gl, DrawableVBO drawable) throws Exception {
         preConfigureDrawable(drawable);
-
         FloatVBO vbo = initFloatVBO(drawable, true, countKv(rows));
         fill(rows, vbo);
         drawable.setData(gl, vbo);
@@ -33,7 +42,6 @@ public class VBOBuilderBarModel extends VBOBuilder {
         drawable.setGeometry(GL.GL_POINTS);
         drawable.setHasColorBuffer(true);
         drawable.setWidth(2);
-       // drawable.setQuality(Quality.Fastest);
     }
 
     protected int countKv(List<List<KeyVal<String, Float>>> rows) {
@@ -47,6 +55,15 @@ public class VBOBuilderBarModel extends VBOBuilder {
         return n;
     }
 
+    /**
+     * Create one point per column, assigning unique column color based on
+     * column ({@link KeyVal.key}) name. Column are sorted in increasing
+     * alphabetical order along Y axis. Value ({@link KeyVal.value}) is ploted
+     * as a Z value for the current column
+     * 
+     * @param rows
+     * @param vbo
+     */
     protected void fill(List<List<KeyVal<String, Float>>> rows, FloatVBO vbo) {
         int size = 0;
         KeyRankColorMapper<String, Float> coloring = new KeyRankColorMapper<String, Float>(rows, new ColorMapRainbow());
