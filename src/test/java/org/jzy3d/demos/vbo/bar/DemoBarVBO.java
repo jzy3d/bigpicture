@@ -1,28 +1,12 @@
 package org.jzy3d.demos.vbo.bar;
 
-import java.util.List;
-
-import javax.media.opengl.GL;
-
 import org.jzy3d.chart.Chart;
-import org.jzy3d.chart.controllers.keyboard.lights.AWTLightKeyController;
-import org.jzy3d.chart.controllers.keyboard.lights.NewtLightKeyController;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.colors.Color;
-import org.jzy3d.colors.ColorMapper;
-import org.jzy3d.demos.vbo.scatter.ScatterGenerator;
-import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.AbstractDrawable;
-import org.jzy3d.plot3d.primitives.CompileableComposite;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
-import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilderListCoord3d;
 import org.jzy3d.plot3d.primitives.vbo.drawable.BarVBO;
-import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
-import org.jzy3d.plot3d.primitives.vbo.drawable.ScatterVBO;
-import org.jzy3d.plot3d.rendering.canvas.CanvasAWT;
-import org.jzy3d.plot3d.rendering.canvas.CanvasNewtAwt;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
-import org.jzy3d.plot3d.rendering.lights.Light;
 import org.jzy3d.plot3d.rendering.view.View;
 import org.jzy3d.plot3d.rendering.view.ViewportMode;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;

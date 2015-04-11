@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel.model.color;
+package org.jzy3d.demos.vbo.barmodel.color;
 
 import org.jzy3d.colors.IColorMappable;
 

@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel.model.color;
+package org.jzy3d.demos.vbo.barmodel.color;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +32,7 @@ public class KeyRankColorMapper<K, V> implements KeyValColorMapper<K, V> {
         int i=0;
         for(K k: keys){
             Color c = colormap.getColor(minmax, i++);
+            c.a = 0.75f;
             colors.put(k, c);//Color.RED);
         }
     }

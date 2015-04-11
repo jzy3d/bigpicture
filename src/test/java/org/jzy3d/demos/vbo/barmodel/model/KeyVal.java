@@ -1,14 +1,26 @@
 package org.jzy3d.demos.vbo.barmodel.model;
 
+
+
 public class KeyVal<K,V> {
     public K key;
     public V val;
+    
+    public interface ValueGenerator<K1,V1>{
+        public V1 value();
+        public V1 value(K1 key);
+    }
     
     public KeyVal(K key, V val) {
         this.key = key;
         this.val = val;
     }
     
+    public KeyVal(K key, ValueGenerator<K,V> setter) {
+        this.key = key;
+        this.val = (V)setter.value(key);
+    }
+
     public K getKey() {
         return key;
     }

@@ -3,7 +3,7 @@
  */
 package org.jzy3d.demos.vbo.barmodel.model;
 
-import org.jzy3d.demos.vbo.barmodel.model.color.KeyValColorMapper;
+import org.jzy3d.demos.vbo.barmodel.color.KeyValColorMapper;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
 
 /**
