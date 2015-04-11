@@ -12,10 +12,10 @@ import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.AbstractDrawable;
 import org.jzy3d.plot3d.primitives.CompileableComposite;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
-import org.jzy3d.plot3d.primitives.vbo.BarVBO;
-import org.jzy3d.plot3d.primitives.vbo.DrawableVBO;
-import org.jzy3d.plot3d.primitives.vbo.ListCoord3dVBOLoader;
-import org.jzy3d.plot3d.primitives.vbo.ScatterVBO;
+import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilderListCoord3d;
+import org.jzy3d.plot3d.primitives.vbo.drawable.BarVBO;
+import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
+import org.jzy3d.plot3d.primitives.vbo.drawable.ScatterVBO;
 import org.jzy3d.plot3d.rendering.canvas.CanvasAWT;
 import org.jzy3d.plot3d.rendering.canvas.CanvasNewtAwt;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
@@ -33,7 +33,7 @@ import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
  * instructions to the GPU at <i>each</i> rendering call, thus implying useless work
  * for geometry that should not change in shape or color over time.
  * 
- * One can easily derive from {@link ListCoord3dVBOLoader} to support its
+ * One can easily derive from {@link VBOBuilderListCoord3d} to support its
  * own datamodel rather than jzy3d {@link Coord3d} elements.
  * 
  * @author Martin Pernollet
@@ -43,7 +43,7 @@ public class DemoScatterVBO {
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
-        float ratio = 5f;
+        float ratio = .5f;
         int size = (int) (ratio * MILION);
 
         // Data
@@ -51,8 +51,8 @@ public class DemoScatterVBO {
         ColorMapper coloring = ScatterGenerator.coloring(coords);
 
         // Geometry
-        ScatterVBO scatter = new ScatterVBO(new ListCoord3dVBOLoader(coords, coloring));
-        scatter.rotator().start(); 
+        ScatterVBO scatter = new ScatterVBO(new VBOBuilderListCoord3d(coords, coloring));
+        //scatter.rotator().start(); 
 
         // Chart
         chart(scatter);

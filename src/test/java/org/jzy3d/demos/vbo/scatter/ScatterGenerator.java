@@ -55,5 +55,4 @@ public class ScatterGenerator {
         ColorMapper coloring = new ColorMapper(new ColorMapRainbow(), zrange.getMin(), zrange.getMax(), new Color(1, 1, 1, .5f));
         return coloring;
     }
-
 }

@@ -15,10 +15,10 @@ import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.AbstractDrawable;
 import org.jzy3d.plot3d.primitives.CompileableComposite;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
-import org.jzy3d.plot3d.primitives.vbo.BarVBO;
-import org.jzy3d.plot3d.primitives.vbo.DrawableVBO;
-import org.jzy3d.plot3d.primitives.vbo.ListCoord3dVBOLoader;
-import org.jzy3d.plot3d.primitives.vbo.ScatterVBO;
+import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilderListCoord3d;
+import org.jzy3d.plot3d.primitives.vbo.drawable.BarVBO;
+import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
+import org.jzy3d.plot3d.primitives.vbo.drawable.ScatterVBO;
 import org.jzy3d.plot3d.rendering.canvas.CanvasAWT;
 import org.jzy3d.plot3d.rendering.canvas.CanvasNewtAwt;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
@@ -39,11 +39,9 @@ public class DemoBarVBO {
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
-        float ratio = 5f;
+        float ratio = .0005f;
         int size = (int) (ratio * MILION);
-        List<Coord3d> coords = ScatterGenerator.getScatter(size);
-        ColorMapper coloring = ScatterGenerator.coloring(coords);
-        BarVBO bars = new BarVBO(new RandomBarVBOLoader(10000));
+        BarVBO bars = new BarVBO(new VBOBuilderRandomBar(size));
         chart(bars);
     }
 

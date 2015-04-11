@@ -26,9 +26,13 @@ public class HBaseConnector {
         // can be found on the CLASSPATH
         Configuration config = HBaseConfiguration.create();
 
+        
+       // HTable table1 = new HTable(config, "test");
+//System.out.println("done test load");
+        
         // This instantiates an HTable object that connects you to the
         // "myLittleHBaseTable" table.
-        HTable table = new HTable(config, "myLittleHBaseTable");
+        HTable table = new HTable(config, "test");
 
         // To add to a row, use Put. A Put constructor takes the name of the row
         // you want to insert into as a byte array. In HBase, the Bytes class
