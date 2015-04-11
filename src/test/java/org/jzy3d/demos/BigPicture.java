@@ -26,6 +26,11 @@ public class BigPicture {
         return chart(drawable, type, "awt", false, new Rectangle(1000, 1000));
     }
 
+    public static Chart chartBlack(AbstractDrawable drawable, Type type) {
+        return chart(drawable, type, "awt", true, new Rectangle(1000, 1000));
+    }
+
+    
     public static Chart offscreen(AbstractDrawable drawable, Type type, int width, int height) {
         return chart(drawable, type, "offscreen,"+width+"," + height, false, null);
     }

@@ -8,7 +8,14 @@ public class DemoStarJoinColumnValuesAWT{
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
-        DrawableVBO drawable = GeneratorStarJoin.makeDrawable(MILION/100);
-        BigPicture.chart(drawable, BigPicture.Type.ddd);
+        int nRaws = MILION / 100;
+        int nPivotTheme = 8;
+        int nPivotCol = 35 * nPivotTheme;
+        int nCpCcCat = 12;
+        int nCpCcCol = 10;
+
+        DrawableVBO drawable = GeneratorStarJoin.drawable(nRaws, nPivotCol, nCpCcCat, nCpCcCol);
+
+        BigPicture.chartBlack(drawable, BigPicture.Type.ddd);
     }
 }

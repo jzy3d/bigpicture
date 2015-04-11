@@ -12,7 +12,13 @@ public class DemoStarJoinColumnValuesOffscreen {
     public static File f = new File("./data/screenshots/" + DemoStarJoinColumnValuesOffscreen.class.getSimpleName() + ".png");
 
     public static void main(String[] args) throws IOException {
-        DrawableVBO drawable = GeneratorStarJoin.makeDrawable(MILION / 100);
+        int nRaws = MILION / 100;
+        int nPivotTheme = 5;
+        int nPivotCol = 35 * nPivotTheme;
+        int nCpCcCat = 12;
+        int nCpCcCol = 10;
+
+        DrawableVBO drawable = GeneratorStarJoin.drawable(nRaws, nPivotCol, nCpCcCat, nCpCcCol);
         BigPicture.screenshot(drawable, BigPicture.Type.dd, 2000, 1700, f);
     }
 }
