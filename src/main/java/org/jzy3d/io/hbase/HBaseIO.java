@@ -2,7 +2,11 @@ package org.jzy3d.io.hbase;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -109,17 +113,16 @@ public class HBaseIO {
     public void put(HTable table, String rowKey, String family, List<KeyVal<String, Float>> keyvals) throws Exception {
         try {
             Put put = new Put(Bytes.toBytes(rowKey));
-            
-            for(KeyVal<String, Float> keyval: keyvals){
-                put.addColumn(Bytes.toBytes(family), Bytes.toBytes(keyval.key.toString()), Bytes.toBytes(keyval.val.toString()));               
+
+            for (KeyVal<String, Float> keyval : keyvals) {
+                put.addColumn(Bytes.toBytes(family), Bytes.toBytes(keyval.key.toString()), Bytes.toBytes(keyval.val.toString()));
             }
             table.put(put);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
+
     public void putAll(List<List<KeyVal<String, Float>>> rows, String tableName, String family) throws Exception {
         putAll(rows, tableName, family, null);
     }
@@ -159,6 +162,8 @@ public class HBaseIO {
         }
     }
 
+    /* SCANS */
+
     /**
      * Scan (or list) a table
      */
@@ -166,7 +171,7 @@ public class HBaseIO {
         try {
             HTable table = getTable(tableName);
             Scan s = new Scan();
-            
+
             ResultScanner ss = table.getScanner(s);
             for (Result r : ss) {
                 for (KeyValue kv : r.raw()) {
@@ -177,14 +182,13 @@ public class HBaseIO {
             e.printStackTrace();
         }
     }
-    
 
     public List<List<KeyVal<String, Float>>> scanRows(String tableName) {
-        final List<List<KeyVal<String, Float>>> rows = new ArrayList<List<KeyVal<String,Float>>>(1000);
+        final List<List<KeyVal<String, Float>>> rows = new ArrayList<List<KeyVal<String, Float>>>(1000);
         scanRows(tableName, rows);
         return rows;
     }
-    
+
     public void scanRows(String tableName, List<List<KeyVal<String, Float>>> rows) {
         try {
             HTable table = getTable(tableName);
@@ -192,13 +196,14 @@ public class HBaseIO {
             ResultScanner ss = table.getScanner(s);
             for (Result r : ss) {
                 List<KeyVal<String, Float>> row = new ArrayList<KeyVal<String, Float>>();
-                
+
                 for (KeyValue kv : r.raw()) {
                     String column = new String(kv.getQualifier());
                     String value = new String(kv.getValue());
-                    /*String row = new String(kv.getRow());
-                    String family = new String(kv.getFamily());
-                    kv.getTimestamp();*/
+                    /*
+                     * String row = new String(kv.getRow()); String family = new
+                     * String(kv.getFamily()); kv.getTimestamp();
+                     */
                     row.add(new KeyVal<String, Float>(column, Float.parseFloat(value)));
                 }
                 rows.add(row);
@@ -207,10 +212,10 @@ public class HBaseIO {
             e.printStackTrace();
         }
     }
-    
+
     public List<Float> scanColumn(String tableName, String family, String columnName) {
         List<Float> column = new ArrayList<Float>();
-        
+
         try {
             HTable table = getTable(tableName);
             Scan s = new Scan();
@@ -225,10 +230,39 @@ public class HBaseIO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return column;
     }
 
+    public Set<String> scanColumnNames(String tableName, String family) {
+        Set<String> columnNames = new TreeSet<String>();
+        try {
+            HTable table = getTable(tableName);
+            Scan s = new Scan();
+
+            ResultScanner ss = table.getScanner(s);
+            for (Result r : ss) {
+                String[] cols = getColumnsInColumnFamily(r, family);
+                columnNames.addAll(Arrays.asList(cols));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return columnNames;
+    }
+
+    public String[] getColumnsInColumnFamily(Result r, String ColumnFamily) {
+        NavigableMap<byte[], byte[]> familyMap = r.getFamilyMap(Bytes.toBytes(ColumnFamily));
+        String[] Quantifers = new String[familyMap.size()];
+
+        int counter = 0;
+        for (byte[] bQunitifer : familyMap.keySet()) {
+            Quantifers[counter++] = Bytes.toString(bQunitifer);
+
+        }
+
+        return Quantifers;
+    }
 
     /* LOGS */
 
@@ -239,6 +273,5 @@ public class HBaseIO {
         System.out.print(kv.getTimestamp() + " ");
         System.out.println(new String(kv.getValue()));
     }
-
 
 }

@@ -29,8 +29,8 @@ public class DemoHBaseColumnGenerate {
     public static void main(String[] args) throws Exception {
         int nRaws = 10000;
         int nPivotCol = 5;
-        int nCpCcCat = 0;
-        int nCpCcCol = 0;
+        int nCpCcCat = 5;
+        int nCpCcCol = 5;
 
         // Generate table data
         GeneratorKeyValue generator = new GeneratorKeyValue();
@@ -47,7 +47,7 @@ public class DemoHBaseColumnGenerate {
         HBaseIO hbase = new HBaseIO();
         hbase.tableDelete(TABLE);
         hbase.tableCreate(TABLE, families);
-        hbase.putAll(rows, TABLE, FAMILY, progress(10));
+        hbase.putAll(rows, TABLE, FAMILY, progress(100));
     }
 
     private static void draw(final List<List<KeyVal<String, Float>>> rows) {
