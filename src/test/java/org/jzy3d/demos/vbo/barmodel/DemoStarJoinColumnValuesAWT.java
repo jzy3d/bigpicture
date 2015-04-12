@@ -13,9 +13,9 @@ public class DemoStarJoinColumnValuesAWT{
     public static int MILION = 1000000;
 
     public static void main(String[] args) {
-        int nRaws = MILION / 100;
+        int nRaws = MILION / 10;
         int nPivotTheme = 8;
-        int nPivotCol = 35 * nPivotTheme;
+        int nPivotCol = 15 * nPivotTheme;
         int nCpCcCat = 12;
         int nCpCcCol = 10;
 

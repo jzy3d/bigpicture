@@ -23,12 +23,12 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.jzy3d.io.KeyVal;
 import org.jzy3d.io.Progress;
 
+/**
+ * Read/Write HBase
+ */
 public class HBaseIO {
 
     private static Configuration conf = null;
-    /**
-     * Initialization
-     */
     static {
         conf = HBaseConfiguration.create();
     }
@@ -114,7 +114,6 @@ public class HBaseIO {
                 put.addColumn(Bytes.toBytes(family), Bytes.toBytes(keyval.key.toString()), Bytes.toBytes(keyval.val.toString()));               
             }
             table.put(put);
-            // System.out.println("insert recored " + rowKey + " to table ok.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,19 +121,15 @@ public class HBaseIO {
     
     
     public void putAll(List<List<KeyVal<String, Float>>> rows, String tableName, String family) throws Exception {
+        putAll(rows, tableName, family, null);
     }
 
     public void putAll(List<List<KeyVal<String, Float>>> rows, String tableName, String family, Progress progress) throws Exception {
         HTable table = getTable(tableName);
 
         int r = 0;
-        int n = 0;
         for (List<KeyVal<String, Float>> row : rows) {
             put(table, r + "", family, row);
-
-            /*for (KeyVal<?, ?> column : row) {
-                put(table, r + "", family, column.key, column.val + "");
-            }*/
             if (progress != null)
                 progress.progress(r++);
         }
@@ -180,6 +175,13 @@ public class HBaseIO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+
+    public List<List<KeyVal<String, Float>>> scanRows(String tableName) {
+        final List<List<KeyVal<String, Float>>> rows = new ArrayList<List<KeyVal<String,Float>>>(1000);
+        scanRows(tableName, rows);
+        return rows;
     }
     
     public void scanRows(String tableName, List<List<KeyVal<String, Float>>> rows) {

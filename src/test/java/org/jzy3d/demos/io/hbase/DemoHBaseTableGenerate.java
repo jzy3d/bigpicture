@@ -18,9 +18,9 @@ import org.jzy3d.utils.LoggerUtils;
  * @author martin
  *
  */
-public class DemoHBaseColumnPlotAWT {
+public class DemoHBaseTableGenerate {
     public static int MILION = 1000000;
-    public static String TABLE = DemoHBaseColumnPlotAWT.class.getSimpleName();
+    public static String TABLE = DemoHBaseTableGenerate.class.getSimpleName();
     public static String FAMILY = "demo";
     static {
         LoggerUtils.minimal();
@@ -37,31 +37,23 @@ public class DemoHBaseColumnPlotAWT {
         GeneratorKeyValue generator = new GeneratorKeyValue();
         final List<List<KeyVal<String, Float>>> rows = generator.vip(nRaws, nPivotCol, nCpCcCat, nCpCcCol);
 
-        // show generated table
-        DrawableVBO drawable = new DrawableVBO(new VBOBuilderColumnDatabase(rows));
-        BigPicture.chart(drawable, BigPicture.Type.ddd).black();
 
         // dump in HBase table
         String[] families = { FAMILY };
         HBaseIO hbase = new HBaseIO();
-        hbase.tableDelete(TABLE);
+        //hbase.tableDelete(TABLE);
         hbase.tableCreate(TABLE, families);
-        hbase.putAll(rows, TABLE, FAMILY, progress());
-        //hbase.scanPrint(TABLE);
+        hbase.putAll(rows, TABLE, FAMILY, progress(1000));
         
-        // clear memory, read what we previously dumped
-        rows.clear();
-        hbase.scanRows(TABLE, rows);
-        
-        // draw read data
-        DrawableVBO drawable2 = new DrawableVBO(new VBOBuilderColumnDatabase(rows));
-        BigPicture.chart(drawable2, BigPicture.Type.ddd).black();
+        // show generated table
+        //DrawableVBO drawable = new DrawableVBO(new VBOBuilderColumnDatabase(rows));
+        //BigPicture.chart(drawable, BigPicture.Type.ddd).black();
     }
 
-    private static Progress progress() {
+    private static Progress progress(final int interval) {
         Progress progress = new Progress(){
             public void progress(int value) {
-                if(value%1000==0)
+                if(value%interval==0)
                     System.out.println(value + " inserted");
             }
         };
