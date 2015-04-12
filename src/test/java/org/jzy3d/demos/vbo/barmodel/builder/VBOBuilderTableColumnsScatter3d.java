@@ -23,10 +23,10 @@ import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
  * 
  * @author Martin Pernollet
  */
-public class VBOBuilderColumnDatabase extends VBOBuilder {
+public class VBOBuilderTableColumnsScatter3d extends VBOBuilder {
     List<List<KeyVal<String, Float>>> rows;
 
-    public VBOBuilderColumnDatabase(List<List<KeyVal<String, Float>>> rows) {
+    public VBOBuilderTableColumnsScatter3d(List<List<KeyVal<String, Float>>> rows) {
         super();
         this.rows = rows;
     }

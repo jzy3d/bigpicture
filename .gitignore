@@ -2,6 +2,7 @@
 
 target/
 data/random/random-500k.csv
+data/screenshots
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

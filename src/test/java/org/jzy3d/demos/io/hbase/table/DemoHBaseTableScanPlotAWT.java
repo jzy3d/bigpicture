@@ -1,9 +1,9 @@
-package org.jzy3d.demos.io.hbase;
+package org.jzy3d.demos.io.hbase.table;
 
 import java.util.List;
 
 import org.jzy3d.demos.BigPicture;
-import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderColumnDatabase;
+import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderTableColumnsScatter3d;
 import org.jzy3d.io.KeyVal;
 import org.jzy3d.io.hbase.HBaseIO;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
@@ -16,7 +16,7 @@ import org.jzy3d.utils.LoggerUtils;
  * @author martin
  *
  */
-public class DemoHBaseTablePlotScanAWT {
+public class DemoHBaseTableScanPlotAWT {
     static {
         LoggerUtils.minimal();
     }
@@ -27,7 +27,7 @@ public class DemoHBaseTablePlotScanAWT {
         List<List<KeyVal<String, Float>>> rows = hbase.scanRows(DemoHBaseTableGenerate.TABLE);
         
         // draw data
-        DrawableVBO drawable2 = new DrawableVBO(new VBOBuilderColumnDatabase(rows));
+        DrawableVBO drawable2 = new DrawableVBO(new VBOBuilderTableColumnsScatter3d(rows));
         BigPicture.chart(drawable2, BigPicture.Type.dd).black();
     }
 }

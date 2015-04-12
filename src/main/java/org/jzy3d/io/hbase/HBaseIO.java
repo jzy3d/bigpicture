@@ -166,6 +166,7 @@ public class HBaseIO {
         try {
             HTable table = getTable(tableName);
             Scan s = new Scan();
+            
             ResultScanner ss = table.getScanner(s);
             for (Result r : ss) {
                 for (KeyValue kv : r.raw()) {
@@ -205,6 +206,27 @@ public class HBaseIO {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public List<Float> scanColumn(String tableName, String family, String columnName) {
+        List<Float> column = new ArrayList<Float>();
+        
+        try {
+            HTable table = getTable(tableName);
+            Scan s = new Scan();
+            s.addColumn(Bytes.toBytes(family), Bytes.toBytes(columnName));
+            ResultScanner ss = table.getScanner(s);
+            for (Result r : ss) {
+                for (KeyValue kv : r.raw()) {
+                    String value = new String(kv.getValue());
+                    column.add(Float.parseFloat(value));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return column;
     }
 
 
