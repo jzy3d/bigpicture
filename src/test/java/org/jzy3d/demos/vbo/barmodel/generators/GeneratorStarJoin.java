@@ -24,7 +24,7 @@ public class GeneratorStarJoin {
         GeneratorKeyValue generator = new GeneratorKeyValue();
         List<List<KeyVal<String,Float>>> rows = generator.vip(nRaws, nPivotCol, nCpCcCat, nCpCcCol);
         DrawableVBO drawable = new DrawableVBO(new VBOBuilderColumnDatabase(rows));
-        String sizing = "nRaws:" + nRaws + " nPivotCol:" + nPivotCol + " nCpCcCol:" + nCpCcCat * nCpCcCol;
+        //String sizing = "nRaws:" + nRaws + " nPivotCol:" + nPivotCol + " nCpCcCol:" + nCpCcCat * nCpCcCol;
         return drawable;
     }
 }

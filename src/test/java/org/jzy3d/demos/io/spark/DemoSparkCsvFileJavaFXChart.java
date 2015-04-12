@@ -1,4 +1,4 @@
-package org.jzy3d.demos.spark;
+package org.jzy3d.demos.io.spark;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

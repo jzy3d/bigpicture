@@ -1,4 +1,4 @@
-package org.jzy3d.io.hbase;
+package org.jzy3d.io.hbase.dl;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -4,6 +4,11 @@ import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.vbo.barmodel.generators.GeneratorStarJoin;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 
+/**
+ * Draws key-values of each row, where each column name is mapped to Y and a color, and each column value is mapped to Z.
+ * @author martin
+ *
+ */
 public class DemoStarJoinColumnValuesAWT{
     public static int MILION = 1000000;
 

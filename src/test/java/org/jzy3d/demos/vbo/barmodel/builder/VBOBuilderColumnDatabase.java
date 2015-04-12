@@ -41,7 +41,7 @@ public class VBOBuilderColumnDatabase extends VBOBuilder {
     private void preConfigureDrawable(DrawableVBO drawable) {
         drawable.setGeometry(GL.GL_POINTS);
         drawable.setHasColorBuffer(true);
-        drawable.setWidth(2);
+        drawable.setWidth(1f);
     }
 
     protected int countKv(List<List<KeyVal<String, Float>>> rows) {
