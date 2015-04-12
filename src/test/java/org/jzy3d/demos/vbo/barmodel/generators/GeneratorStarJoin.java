@@ -3,7 +3,7 @@ package org.jzy3d.demos.vbo.barmodel.generators;
 import java.util.List;
 
 import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderColumnDatabase;
-import org.jzy3d.demos.vbo.barmodel.model.KeyVal;
+import org.jzy3d.io.KeyVal;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 
 public class GeneratorStarJoin {

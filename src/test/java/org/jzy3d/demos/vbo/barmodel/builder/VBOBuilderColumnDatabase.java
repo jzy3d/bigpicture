@@ -7,7 +7,7 @@ import javax.media.opengl.GL;
 import org.jzy3d.colors.Color;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
 import org.jzy3d.demos.vbo.barmodel.color.KeyRankColorMapper;
-import org.jzy3d.demos.vbo.barmodel.model.KeyVal;
+import org.jzy3d.io.KeyVal;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
 import org.jzy3d.plot3d.primitives.vbo.buffers.VBO;

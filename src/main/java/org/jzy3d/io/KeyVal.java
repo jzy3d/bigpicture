@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel.model;
+package org.jzy3d.io;
 
 
 

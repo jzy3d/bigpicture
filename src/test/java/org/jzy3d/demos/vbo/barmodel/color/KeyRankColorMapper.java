@@ -8,7 +8,7 @@ import java.util.TreeSet;
 
 import org.jzy3d.colors.Color;
 import org.jzy3d.colors.colormaps.IColorMap;
-import org.jzy3d.demos.vbo.barmodel.model.KeyVal;
+import org.jzy3d.io.KeyVal;
 
 public class KeyRankColorMapper<K, V> implements KeyValColorMapper<K, V> {
     Map<K, Color> colors;

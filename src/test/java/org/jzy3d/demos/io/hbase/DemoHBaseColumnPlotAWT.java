@@ -5,9 +5,9 @@ import java.util.List;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderColumnDatabase;
 import org.jzy3d.demos.vbo.barmodel.generators.GeneratorKeyValue;
-import org.jzy3d.demos.vbo.barmodel.model.KeyVal;
+import org.jzy3d.io.KeyVal;
+import org.jzy3d.io.Progress;
 import org.jzy3d.io.hbase.HBaseIO;
-import org.jzy3d.io.hbase.Progress;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 import org.jzy3d.utils.LoggerUtils;
 
