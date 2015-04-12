@@ -110,7 +110,7 @@ public class HBaseIO {
             Put put = new Put(Bytes.toBytes(rowKey));
             
             for(KeyVal<String, Float> keyval: keyvals){
-                put.addColumn(Bytes.toBytes(family), Bytes.toBytes(keyval.key.toString()), Bytes.toBytes(keyval.key.toString()));               
+                put.addColumn(Bytes.toBytes(family), Bytes.toBytes(keyval.key.toString()), Bytes.toBytes(keyval.val.toString()));               
             }
             table.put(put);
             // System.out.println("insert recored " + rowKey + " to table ok.");
@@ -180,6 +180,30 @@ public class HBaseIO {
             e.printStackTrace();
         }
     }
+    
+    public void scanRows(String tableName, List<List<KeyVal<String, Float>>> rows) {
+        try {
+            HTable table = getTable(tableName);
+            Scan s = new Scan();
+            ResultScanner ss = table.getScanner(s);
+            for (Result r : ss) {
+                List<KeyVal<String, Float>> row = new ArrayList<KeyVal<String, Float>>();
+                
+                for (KeyValue kv : r.raw()) {
+                    String column = new String(kv.getQualifier());
+                    String value = new String(kv.getValue());
+                    /*String row = new String(kv.getRow());
+                    String family = new String(kv.getFamily());
+                    kv.getTimestamp();*/
+                    row.add(new KeyVal<String, Float>(column, Float.parseFloat(value)));
+                }
+                rows.add(row);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /* LOGS */
 
@@ -190,5 +214,6 @@ public class HBaseIO {
         System.out.print(kv.getTimestamp() + " ");
         System.out.println(new String(kv.getValue()));
     }
+
 
 }
