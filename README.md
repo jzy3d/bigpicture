@@ -98,6 +98,43 @@ public class DemoSparkCsvFileJavaFXChart extends Application{
 
 <img src="doc/images/scatter-5k-2d.png"/>
 
+
+
+### HBase table content overview
+
+Create an AWT application scanning and drawing an HBase table. 
+
+* Each row is represented is assigned a X value.
+* Each column of a row is represented by a colored point along the Y axis. The same unique color is assigned to all row columns having the same name. Points are stacked to build an histogram of the number of column, but each column could have a unique Y value rather than a color. Color could thus be free to represent another information (e.g. number of versions for the value)
+* Each column value of a row is represented by the Z value of the point
+* VBO allow to store the geometry once in GPU and then to trigger rendering on demand (viewpoint change, frame repaint, etc)
+
+
+```java
+public class DemoHBaseTableScanPlotAWT {
+    public static void main(String[] args) throws Exception {
+        // read from HBase table
+        HBaseIO hbase = new HBaseIO();
+        List<List<KeyVal<String, Float>>> rows = hbase.scanRows(DemoHBaseTableGenerate.TABLE);
+
+        // draw data
+        DrawableVBO drawable2 = new DrawableVBO(new VBOBuilderTableColumnsScatter3d(rows));
+        BigPicture.chart(drawable2, BigPicture.Type.ddd).black();
+    }
+}
+```
+
+
+
+#### 2D view
+
+<img src="doc/images/hbase-row-col-val-2d.png"/>
+
+#### 3D view
+<img src="doc/images/hbase-row-col-val-3d.png"/>
+
+
+
 ## Run yourself
 
 ```

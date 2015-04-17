@@ -28,6 +28,6 @@ public class DemoHBaseTableScanPlotAWT {
         
         // draw data
         DrawableVBO drawable2 = new DrawableVBO(new VBOBuilderTableColumnsScatter3d(rows));
-        BigPicture.chart(drawable2, BigPicture.Type.dd).black();
+        BigPicture.chart(drawable2, BigPicture.Type.ddd).black();
     }
 }
