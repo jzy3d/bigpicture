@@ -15,7 +15,7 @@ See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/
 
 Generate 5.000.000 points, setup a colormap, and build a VBO (GPU in-memory) scatter plots rendering smoothly in an AWT window.
 
-Vertex Buffer Objects (VBOs) allow to store the geometry once in GPU and then trigger rendering on demand (viewpoint change, frame repaint, etc) without huge exchange of data between CPU and GPU (as occurs with standard drawable objects).
+Vertex Buffer Objects (VBOs) allow to store the geometry once in GPU when the program starts and then trigger rendering on demand (viewpoint change, frame repaint, etc) without huge exchange of data between CPU and GPU (as occurs with standard drawable objects).
 
 
 ```java
