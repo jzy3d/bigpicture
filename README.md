@@ -15,7 +15,7 @@ See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/
 
 Generate 5.000.000 points, setup a colormap, and build a VBO (GPU in-memory) scatter plots rendering smoothly in an AWT window.
 
-VBO allow to store the geometry once in GPU and then to trigger rendering on demand (viewpoint change, frame repaint, etc)
+Vertex Buffer Objects (VBOs) allow to store the geometry once in GPU and then trigger rendering on demand (viewpoint change, frame repaint, etc) without huge exchange of data between CPU and GPU (as occurs with standard drawable objects).
 
 
 ```java
@@ -102,7 +102,7 @@ public class DemoSparkCsvFileJavaFXChart extends Application{
 
 ### HBase table content overview
 
-Create an AWT application scanning and drawing an HBase table. 
+Create an AWT application scanning and drawing an HBase table.
 
 * Each row is represented is assigned a X value.
 * Each column of a row is represented by a colored point along the Y axis. The same unique color is assigned to all row columns having the same name. Points are stacked to build an histogram of the number of column, but each column could have a unique Y value rather than a color. Color could thus be free to represent another information (e.g. number of versions for the value)
