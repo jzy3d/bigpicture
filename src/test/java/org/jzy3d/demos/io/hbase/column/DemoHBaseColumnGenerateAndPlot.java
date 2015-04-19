@@ -7,7 +7,7 @@ import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderLineStrip;
-import org.jzy3d.maths.HistogramRange;
+import org.jzy3d.maths.Histogram;
 import org.jzy3d.maths.Statistics;
 import org.jzy3d.plot2d.primitives.Histogram2d;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
@@ -32,7 +32,7 @@ public class DemoHBaseColumnGenerateAndPlot{
         float min = Statistics.min(values);
         float max = Statistics.max(values);
 
-        HistogramRange model = new HistogramRange(min,max,10);
+        Histogram model = new Histogram(min,max,10);
         
         for(Float value: values){
             model.add(value);
@@ -49,8 +49,8 @@ public class DemoHBaseColumnGenerateAndPlot{
         BigPicture.chart(drawable, BigPicture.Type.dd).black();
     }
     
-    public static HistogramRange testHistAdd(){
-        HistogramRange h = new HistogramRange(0, 1, 10);
+    public static Histogram testHistAdd(){
+        Histogram h = new Histogram(0, 1, 10);
         for (int i = 0; i < 1000; i++) {
             h.add((float)Math.random());
         }

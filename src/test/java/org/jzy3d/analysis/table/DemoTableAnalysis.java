@@ -1,13 +1,14 @@
-package org.jzy3d.demos.io.hbase.table;
+package org.jzy3d.analysis.table;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.jzy3d.analysis.table.DefaultTableScanScheduler;
+import org.jzy3d.analysis.table.TableAnalysis;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderTableColumnsScatter3d;
 import org.jzy3d.demos.vbo.barmodel.generators.GeneratorKeyValue;
-import org.jzy3d.io.DefaultTableScanScheduler;
 import org.jzy3d.io.KeyVal;
 import org.jzy3d.io.Progress;
 import org.jzy3d.io.hbase.HBaseIO;
@@ -30,18 +31,18 @@ public class DemoTableAnalysis {
     }
 
     public static void main(String[] args) throws Exception {
-        int nRaws = MILION / 1000;
-        int nPivotTheme = 10;
-        int nPivotCol = 15 * nPivotTheme;
-        int nCpCcCat = 10;
-        int nCpCcCol = 5;
+        int nRaws = 1000;//MILION;
+        int nPivotTheme = 2;
+        int nPivotCol = 3 * nPivotTheme;
+        int nCpCcCat = 5;
+        int nCpCcCol = 4;
 
         // Generate table data
         GeneratorKeyValue generator = new GeneratorKeyValue();
         DefaultTableScanScheduler scheduler = new DefaultTableScanScheduler(generator.vip(nRaws, nPivotCol, nCpCcCat, nCpCcCol));
         
         report(scheduler, new File("data/screenshots/tableanalysis/"));
-        draw(scheduler.getTable());
+        //draw(scheduler.getTable());
         //hbaseDump(rows);
     }
     
@@ -56,6 +57,8 @@ public class DemoTableAnalysis {
         BigPicture.chart(drawable, BigPicture.Type.dd).black();
     }
 
+    /* HBASE */
+    
     public static void hbaseDump(final List<List<KeyVal<String, Float>>> rows) throws Exception {
         // dump in HBase table
         String[] families = { FAMILY };
