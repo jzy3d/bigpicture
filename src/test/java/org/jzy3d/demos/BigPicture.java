@@ -3,15 +3,23 @@ package org.jzy3d.demos;
 import java.io.File;
 import java.io.IOException;
 
+import javax.media.opengl.GL;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLProfile;
+
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.maths.Rectangle;
 import org.jzy3d.plot3d.primitives.AbstractDrawable;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
+import org.jzy3d.plot3d.rendering.view.AWTRenderer3d;
+import org.jzy3d.plot3d.rendering.view.Renderer3d;
 import org.jzy3d.plot3d.rendering.view.View;
 import org.jzy3d.plot3d.rendering.view.ViewportMode;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
+
+import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 
 public class BigPicture {
     public static String TITLE = "BigPicture";
@@ -56,8 +64,36 @@ public class BigPicture {
     }
 
 
+    @SuppressWarnings("static-access")
     public static Chart chart(AbstractDrawable drawable, Type type, String wt, boolean black, Rectangle rect) {
-        Chart chart = AWTChartComponentFactory.chart(Quality.Intermediate, wt);
+        Chart chart = null;//AWTChartComponentFactory.chart(Quality.Intermediate, wt);
+        chart = new AWTChartComponentFactory(){
+            @Override
+            public Renderer3d newRenderer(View view, boolean traceGL, boolean debugGL) {
+                return new AWTRenderer3d(view, traceGL, debugGL){
+                    @Override
+                    public void display(GLAutoDrawable canvas) {
+                        GL gl = canvas.getGL();
+
+                        if (view != null) {
+                            view.clear(gl);
+                            view.render(gl, glu);
+
+                            if (doScreenshotAtNextDisplay) {
+                                AWTGLReadBufferUtil screenshot = new AWTGLReadBufferUtil(GLProfile.getGL2GL3(), true);
+                                screenshot.readPixels(gl, false);
+                                image = screenshot.getTextureData();
+                                bufferedImage = screenshot.readPixelsToBufferedImage(gl, false);
+                                
+                                doScreenshotAtNextDisplay = false;
+                            }
+                        }
+                    }
+
+                };
+            }
+        }.chart(Quality.Advanced, wt);
+        
         chart.getScene().getGraph().add(drawable);
         if (black)
             chart.black();

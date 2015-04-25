@@ -25,21 +25,22 @@ import org.jzy3d.utils.LoggerUtils;
 public class DemoTableAnalysis {
     public static int MILION = 1000000;
     public static String TABLE = DemoTableAnalysis.class.getSimpleName();
-    public static String FAMILY = "demo";
+    public static String FAMILY = "f";
     static {
         LoggerUtils.minimal();
     }
 
     public static void main(String[] args) throws Exception {
         int nRaws = 1000;//MILION;
-        int nPivotTheme = 2;
+        int nPivotTheme = 8;
         int nPivotCol = 3 * nPivotTheme;
-        int nCpCcCat = 5;
+        int nCpCcCat = 0;
         int nCpCcCol = 4;
 
         // Generate table data
         GeneratorKeyValue generator = new GeneratorKeyValue();
-        DefaultTableScanScheduler scheduler = new DefaultTableScanScheduler(generator.vip(nRaws, nPivotCol, nCpCcCat, nCpCcCol));
+        List<List<KeyVal<String, Float>>> table = generator.vip(nRaws, nPivotCol, nCpCcCat, nCpCcCol);
+        DefaultTableScanScheduler scheduler = new DefaultTableScanScheduler(table);
         
         report(scheduler, new File("data/screenshots/tableanalysis/"));
         //draw(scheduler.getTable());

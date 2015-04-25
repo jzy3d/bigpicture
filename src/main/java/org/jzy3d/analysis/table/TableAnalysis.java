@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.jzy3d.chart.Chart;
+import org.jzy3d.colors.Color;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
 import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderLineStrip;
@@ -28,7 +29,7 @@ import com.google.common.collect.ArrayListMultimap;
 public class TableAnalysis {
     protected DefaultTableScanScheduler scheduler;
 
-    protected boolean black = true;
+    protected boolean black = false;
 
     public TableAnalysis(DefaultTableScanScheduler scheduler) {
         this.scheduler = scheduler;
@@ -130,6 +131,11 @@ public class TableAnalysis {
         hist.add(values);
 
         Histogram2d histogram = new Histogram2d(hist);
+        if (black)
+            histogram.getDrawable().setWireframeColor(Color.WHITE);
+        else
+            histogram.getDrawable().setWireframeColor(Color.BLACK);
+
         Chart chart = BigPicture.offscreen(histogram.getDrawable(), Type.dd, width, height).view2d();
         if (black)
             chart.black();
@@ -138,14 +144,13 @@ public class TableAnalysis {
 
         html.append("<img src=\"" + imageName + "\"/>\n");
     }
-    
+
     private void offscreen2d(int width, int height, File file, DrawableVBO drawable) throws IOException {
         Chart chart = BigPicture.offscreen(drawable, Type.dd, width, height);
         if (black)
             chart.black();
         chart.screenshot(file);
     }
-
 
     /* */
 

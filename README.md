@@ -135,6 +135,48 @@ public class DemoHBaseTableScanPlotAWT {
 
 
 
+### Batch reports
+
+Generates an HTML report with multiple PNG image showing values of each column.
+
+```java
+public class DemoTableAnalysis {
+    public static void main(String[] args) throws Exception {
+        // Generate table data
+        GeneratorKeyValue generator = new GeneratorKeyValue();
+        List<List<KeyVal<String, Float>>> table = generator.generate();
+
+        // Provide a table scan scheduler to a table analysis
+        // generating chart with table data
+        DefaultTableScanScheduler scheduler = new DefaultTableScanScheduler(table);
+        TableAnalysis analysis = new TableAnalysis(scheduler);
+        analysis.report(new File("data/screenshots/tableanalysis/"));
+    }
+}
+```
+
+<img src="doc/images/table-batch-report.png"/>
+
+
+https://github.com/jzy3d/bigpicture/blob/master/src/test/java/org/jzy3d/analysis/table/DemoTableAnalysis.java
+
+
+## Utilities
+
+
+### Histograms
+
+##### 100 bins, 1000 values of uniform distribution
+<img src="doc/images/histogram-100bins.png"/>
+
+##### 1000 bins, 1000 values of uniform distribution
+<img src="doc/images/histogram-1000bins.png"/>
+
+
+##### 70 bins, 1.000.000 values of gaussian distribution
+<img src="doc/images/histogram-1M.png"/>
+
+
 ## Run yourself
 
 ```
