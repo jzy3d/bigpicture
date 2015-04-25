@@ -19,7 +19,7 @@ import org.jzy3d.utils.LoggerUtils;
  *
  */
 public class DemoHBaseTableWriteReadPlotAWT {
-    public static int MILION = 1000000;
+    public static int MILLION = 1000000;
     public static String TABLE = DemoHBaseTableWriteReadPlotAWT.class.getSimpleName();
     public static String FAMILY = "demo";
     
@@ -29,7 +29,7 @@ public class DemoHBaseTableWriteReadPlotAWT {
     }
 
     public static void main(String[] args) throws Exception {
-        int nRaws = MILION / 100;
+        int nRaws = MILLION / 100;
         int nPivotTheme = 8;
         int nPivotCol = 15 * nPivotTheme;
         int nCpCcCat = 12;

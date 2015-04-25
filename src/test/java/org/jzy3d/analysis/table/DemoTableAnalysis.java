@@ -23,7 +23,7 @@ import org.jzy3d.utils.LoggerUtils;
  *
  */
 public class DemoTableAnalysis {
-    public static int MILION = 1000000;
+    public static int MILLION = 1000000;
     public static String TABLE = DemoTableAnalysis.class.getSimpleName();
     public static String FAMILY = "f";
     static {

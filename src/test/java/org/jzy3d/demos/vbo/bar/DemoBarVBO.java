@@ -12,11 +12,11 @@ import org.jzy3d.plot3d.primitives.vbo.drawable.BarVBO;
  * - verify VBO available
  */
 public class DemoBarVBO {
-    public static int MILION = 1000000;
+    public static int MILLION = 1000000;
 
     public static void main(String[] args) {
-        float ratio = .5f;
-        int size = (int) (ratio * MILION);
+        float ratio = .05f;
+        int size = (int) (ratio * MILLION);
         BarVBO bars = new BarVBO(new VBOBuilderRandomBar(size));
         BigPicture.chart(bars, BigPicture.Type.dd);
     }

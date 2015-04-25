@@ -11,7 +11,7 @@ See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/
 
 
 
-### 5 milions points scatter plot
+### 5 millions points scatter plot
 
 Generate 5.000.000 points, setup a colormap, and build a VBO (GPU in-memory) scatter plots rendering smoothly in an AWT window.
 
@@ -175,6 +175,10 @@ https://github.com/jzy3d/bigpicture/blob/master/src/test/java/org/jzy3d/analysis
 
 ##### 70 bins, 1.000.000 values of gaussian distribution
 <img src="doc/images/histogram-1M.png"/>
+
+##### 50.000 bins
+DemoBarVBO
+<img src="doc/images/histogram-50k-bins.png"/>
 
 
 ## Run yourself
