@@ -99,10 +99,12 @@ public class BigPicture {
             chart.black();
         chart.getView().getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
         chart.addMouseController();
-        if (rect != null)
-            chart.open(TITLE, rect.width, rect.height);
-        else
-            chart.open(TITLE, rect);
+        if(!wt.contains("offscreen")){
+            if (rect != null)
+                chart.open(TITLE, rect.width, rect.height);
+            else
+                chart.open(TITLE, rect);           
+        }
         if (type.equals(Type.dd))
             layout2d(chart);
         return chart;

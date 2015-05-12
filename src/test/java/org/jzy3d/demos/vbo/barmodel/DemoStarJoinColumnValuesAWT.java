@@ -14,9 +14,9 @@ public class DemoStarJoinColumnValuesAWT{
 
     public static void main(String[] args) {
         int nRaws = MILION / 10;
-        int nPivotTheme = 8;
+        int nPivotTheme = 1;
         int nPivotCol = 15 * nPivotTheme;
-        int nCpCcCat = 12;
+        int nCpCcCat = 0;
         int nCpCcCol = 10;
 
         DrawableVBO drawable = GeneratorStarJoin.drawable(nRaws, nPivotCol, nCpCcCat, nCpCcCol);

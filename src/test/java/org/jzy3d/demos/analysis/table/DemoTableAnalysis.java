@@ -1,4 +1,4 @@
-package org.jzy3d.analysis.table;
+package org.jzy3d.demos.analysis.table;
 
 import java.io.File;
 import java.io.IOException;
