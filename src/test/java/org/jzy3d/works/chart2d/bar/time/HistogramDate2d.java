@@ -23,21 +23,21 @@ public class HistogramDate2d {
 
     protected HistogramDate model;
     protected AbstractComposite drawable;
-    
+
     public HistogramDate2d(HistogramDate model) {
         setModel(model);
     }
-    
+
     /** Set global chart view settings to best draw this histogram. */
-    public void layout(Chart chart){
+    public void layout(Chart chart) {
         IAxeLayout layout = chart.getAxeLayout();
         int ymax = getModel().computeMaxCount();
-        double[] ticks = {0, ymax/4, ymax/2, ymax/2 + ymax/4, ymax};
+        double[] ticks = { 0, ymax / 4, ymax / 2, ymax / 2 + ymax / 4, ymax };
         layout.setYTickProvider(new StaticTickProvider(ticks));
 
-        DateRange center = model.ranges[model.ranges.length/2];
+        DateRange center = model.ranges[model.ranges.length / 2];
         String dayString = DAY_FORMATTER.print(center.min);
-        
+
         if (TimeMode.DAY.equals(model.timeMode)) {
             layout.setXTickProvider(new RegularTickProvider(5));
             layout.setXTickRenderer(new DateTickRenderer("yyyy/MM/dd HH:mm:ss"));
@@ -57,18 +57,21 @@ public class HistogramDate2d {
         }
 
         layout.setYAxeLabel("Count");
-        
-        /*SpaceTransformer spaceTransformer = new SpaceTransformer(null, new SpaceTransformLog(), null);
-        AxeBox axe = (AxeBox)chart.getView().getAxe();
-        axe.setSpaceTransformer(spaceTransformer);
-        chart.getView().setSpaceTransformer(spaceTransformer);*/
+
+        boolean log = false;
+        if (log) {
+            SpaceTransformer spaceTransformer = new SpaceTransformer(null, new SpaceTransformLog(), null);
+            AxeBox axe = (AxeBox) chart.getView().getAxe();
+            axe.setSpaceTransformer(spaceTransformer);
+            chart.getView().setSpaceTransformer(spaceTransformer);
+        }
     }
-    
-    public void addTo(Chart chart){
+
+    public void addTo(Chart chart) {
         chart.add(drawable);
         layout(chart);
     }
-    
+
     public void setModel(HistogramDate model) {
         this.model = model;
         this.drawable = buildDrawable(model);
@@ -82,13 +85,13 @@ public class HistogramDate2d {
         return drawable;
     }
 
-    protected AbstractComposite buildDrawable(HistogramDate model){
+    protected AbstractComposite buildDrawable(HistogramDate model) {
         AbstractComposite c = new AbstractComposite() {
         };
         for (int i = 0; i < model.ranges().length; i++) {
             DateRange range = model.ranges()[i];
             int count = model.getCount(i);
-            
+
             Polygon p = makeCountBar(range, count);
             c.add(p);
         }
@@ -97,12 +100,12 @@ public class HistogramDate2d {
 
     private Polygon makeCountBar(DateRange range, int count) {
         float z = 0;
-        float min = 0;//1431463260000f;//E12
-        float div = 1;//1431463260000f;//10000000000f;
-        
-        float xmin = (range.min.getMillis()-min)/div;
-        float xmax = (range.max.getMillis()-min)/div;
-        
+        float min = 0;// 1431463260000f;//E12
+        float div = 1;// 1431463260000f;//10000000000f;
+
+        float xmin = (range.min.getMillis() - min) / div;
+        float xmax = (range.max.getMillis() - min) / div;
+
         Coord3d c1 = new Coord3d(xmin, 0, z);
         Coord3d c2 = new Coord3d(xmin, count, z);
         Coord3d c3 = new Coord3d(xmax, count, z);

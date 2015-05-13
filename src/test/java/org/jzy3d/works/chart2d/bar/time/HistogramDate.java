@@ -14,7 +14,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class HistogramDate {
-    private static final int MIN_BINS = 3;
+    private static final int MIN_BINS = 5;
 
     public enum TimeMode {
         DAY, HOUR, MINUTE, SECOND

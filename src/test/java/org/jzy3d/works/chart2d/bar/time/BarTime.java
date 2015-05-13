@@ -14,13 +14,17 @@ import org.jzy3d.works.chart2d.bar.time.HistogramDate.TimeMode;
 
 // WARN : readability of bins will depend on time interval : very large interval = small bins
 // TODO : make log transform work : readable with 100 but not with 100.000
+// TODO : SHOULD force number of bins : here depends on number of steps in a given time range
 public class BarTime {
-    public static int N = 10000;
+    // data generation
+    public static int N = 100000;
     public static TimeMode timeMode = TimeMode.HOUR;//SECOND MIGHT FAIL
     public static int WIDTH = 100;
+    public static int N_EARLY = 2;
+    
+    
     public static Type dimensions = Type.dd;
     
-    public static int N_EARLY = 2;
     
     public static void main(String[] args) throws IOException {
         
