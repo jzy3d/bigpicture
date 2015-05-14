@@ -10,6 +10,7 @@ import org.jzy3d.chart.Chart;
 import org.jzy3d.colors.Color;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
+import org.jzy3d.maths.TicToc;
 import org.jzy3d.works.chart2d.bar.time.HistogramDate.TimeMode;
 
 // WARN : readability of bins will depend on time interval : very large interval = small bins
@@ -17,8 +18,9 @@ import org.jzy3d.works.chart2d.bar.time.HistogramDate.TimeMode;
 // TODO : SHOULD force number of bins : here depends on number of steps in a given time range
 public class BarTime {
     // data generation
-    public static int N = 100000;
-    public static TimeMode timeMode = TimeMode.HOUR;//SECOND MIGHT FAIL
+    public static int MILLION = 1000000;
+    public static int N = 150 * MILLION;
+    public static TimeMode timeMode = TimeMode.MINUTE;//SECOND MIGHT FAIL
     public static int WIDTH = 100;
     public static int N_EARLY = 2;
     
@@ -27,8 +29,8 @@ public class BarTime {
     
     
     public static void main(String[] args) throws IOException {
-        
         DateTime now = new DateTime();
+        System.out.println(N + " events around " + now + " with +-" + WIDTH + " " + timeMode);
 
         List<DateTime> events = new ArrayList<DateTime>();
         for (int i = 0; i < N; i++) {
@@ -40,8 +42,14 @@ public class BarTime {
             
         }
 
+        TicToc.T.tic();
         HistogramDate hist = new HistogramDate(events);
+        TicToc.T.tocShow("gen hist");
+        
+        TicToc.T.tic();
         HistogramDate2d histogram = new HistogramDate2d(hist);
+        TicToc.T.tocShow("made drawable");
+        
         histogram.getDrawable().setWireframeColor(Color.BLACK);
         System.out.println(histogram.getDrawable().getBounds());
         

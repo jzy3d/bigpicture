@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
+
 /**
  * export HIVE_CONF_DIR=/Users/martin/Dev/hadoop/spark/spark-trials
  * 
@@ -12,81 +13,112 @@ import java.sql.DriverManager;
  *
  */
 public class HiveJdbcClient {
-    private static String driverName = "org.apache.hive.jdbc.HiveDriver";
+    private static String DRIVER_NAME = "org.apache.hive.jdbc.HiveDriver";
 
     /**
      * https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients
-     * http://chase-seibert.github.io/blog/2013/05/17/hive-insert-and-dump-csv-with-map-datatype.html
+     * http:
+     * //chase-seibert.github.io/blog/2013/05/17/hive-insert-and-dump-csv-with
+     * -map-datatype.html
      */
     public static void main(String[] args) throws SQLException {
-        driver();
+        // String ip = "172.16.255.128"; // old
+        // String user = "root";
+        // String password = "hadoop";
 
-        String ip = "172.16.255.134";
+        String ip = "172.16.255.131";
+        String port = "10000";
+        String domain = "default";
+        String user = "train";
+        String password = "hadoop";
+        // actions
+        boolean load = false;
+        boolean print = false;
+        boolean insert = true;
 
-        // replace "hive" here with the name of the user the queries should run
-        // as
-        Connection con = DriverManager.getConnection("jdbc:hive2://" + ip + ":10000/default", "train", "hadoop");
-        Statement stmt = con.createStatement();
+        HiveJdbcClient hive = new HiveJdbcClient();
+        Statement stmt = hive.connect(ip, port, domain, user, password).createStatement();
 
-        String tableName = "testHiveDriverTable";
-        //dropCreateTable(stmt, tableName);
-        showTables(stmt, tableName);
-        describe(stmt, tableName);
+        // List tables
+        // hive.showTables(stmt);
+
+        // Create a table
+        String tableName = "pouet";
+
+        hive.createTable(stmt, tableName, " (key int, value string)");
 
         // load data into table
-        // NOTE: filepath has to be local to the hive server
-        // NOTE: /tmp/a.txt is a ctrl-A separated file with two fields per line
-        String csvInput = "/tmp/martin-10-06-au-12-26-comma.csv";
+        if (load) {
+            String filepath = "/tmp/a.txt";
+            hive.loadData(stmt, tableName, filepath);
+        }
 
-        String filepath = "/tmp/a.txt";
-        // loadData(stmt, tableName, filepath);
+        // Print a table
+        if (print) {
+            hive.describe(stmt, tableName);
+            hive.count(stmt, tableName);
+            hive.selectAll(stmt, tableName);
+        }
 
-        //insertInto(stmt, tableName, 0, "coucou");
-        
-        insert(stmt);
-        //stmt.execute("select * from test");
-        selectAll(stmt, "test");
-        count(stmt, "test");
-        //selectAll(stmt, tableName);
-        //count(stmt, tableName);
-    }
-
-    private static void insert(Statement stmt) throws SQLException {
-        stmt.execute("drop table if exists test");
-        stmt.execute("create table if not exists test(a int, b int) row format delimited fields terminated by ' '");
-        
-        stmt.execute("drop table if exists dual");
-        stmt.execute("create table dual as select 1 as one from test");
-        
-        stmt.execute("insert into table test select stack(1,4,5) AS (a,b) from dual");
-    }
-
-    private static void driver() {
-        try {
-            Class.forName(driverName);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            System.exit(1);
+        // Load data in table
+        // load(hive, stmt, tableName);
+        if (insert) {
+            hive.insertInto(stmt, tableName, 0, "coucou1");
+            hive.insertInto(stmt, tableName, 1, "coucou2");
+            hive.insertInto(stmt, tableName, 2, "coucou3");
+            hive.count(stmt, tableName);
+            hive.selectAll(stmt, tableName);
         }
     }
-    private static void dropCreateTable(Statement stmt, String tableName) throws SQLException {
-        stmt.execute("drop table if exists " + tableName);
-        stmt.execute("create table " + tableName + " (key int, value string)");
+
+    /* */
+
+    public HiveJdbcClient() {
+        loadDriver();
     }
 
-    private static void insertInto(Statement stmt, String tableName, int key, String value) throws SQLException {
-        String q = "insert into table " + tableName;// + " values (" + key + ", '" + value + "')";
-        String q2 = "select * from (values(" + key + ", '" + value + "')) as t";
-        //q = q + " (" + q2 + ")";
-        q = q + " values (" + key + ", '" + value + "')";
-        
-        System.out.println(q);
-        stmt.execute(q);// (key int, value string)");
+    private static void loadDriver() {
+        try {
+            Class.forName(DRIVER_NAME);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    
-    private static void count(Statement stmt, String tableName) throws SQLException {
+    public Connection connect(String ip, String port, String domain, String user, String password) throws SQLException {
+        String url = "jdbc:hive2://" + ip + ":" + port + "/default";
+        System.out.print("connecting to " + url);
+        Connection con = DriverManager.getConnection(url, user, password);
+        System.out.println(" /");
+        return con;
+    }
+
+    /* */
+
+    /*public void insert(Statement stmt) throws SQLException {
+        exec(stmt, "drop table if exists test");
+        exec(stmt, "create table if not exists test(a int, b int) row format delimited fields terminated by ' '");
+
+        exec(stmt, "drop table if exists dual");
+        exec(stmt, "create table dual as select 1 as one from test");
+
+        exec(stmt, "insert into table test select stack(1,4,5) AS (a,b) from dual");
+
+            // String q2 = "select * from (values(" + key + ", '" + value +
+        // "')) as t";
+        // q = q + " (" + q2 + ")";
+
+    }*/
+
+    public void insertInto(Statement stmt, String tableName, int key, String value) throws SQLException {
+        String q = "insert into table " + tableName;
+        q = q + " values (" + key + ", \"" + value + "\")";
+        exec(stmt, q);
+    }
+
+    /* */
+
+    public void count(Statement stmt, String tableName) throws SQLException {
         String sql;
         ResultSet res;
         sql = "select count(1) from " + tableName;
@@ -97,7 +129,7 @@ public class HiveJdbcClient {
         }
     }
 
-    private static void selectAll(Statement stmt, String tableName) throws SQLException {
+    public void selectAll(Statement stmt, String tableName) throws SQLException {
         String sql;
         ResultSet res;
         sql = "select * from " + tableName;
@@ -108,14 +140,16 @@ public class HiveJdbcClient {
         }
     }
 
-    private static void loadData(Statement stmt, String tableName, String filepath) throws SQLException {
-        String sql;
-        sql = "load data local inpath '" + filepath + "' into table " + tableName;
-        System.out.println("Running: " + sql);
-        stmt.execute(sql);
+    // NOTE: filepath has to be local to the hive server
+    // NOTE: /tmp/a.txt is a ctrl-A separated file with two fields per line
+    public void loadData(Statement stmt, String tableName, String localInpath) throws SQLException {
+        String sql = "load data local inpath '" + localInpath + "' into table " + tableName;
+        exec(stmt, sql);
     }
 
-    private static void describe(Statement stmt, String tableName) throws SQLException {
+    /* */
+
+    public void describe(Statement stmt, String tableName) throws SQLException {
         String sql;
         ResultSet res;
         sql = "describe " + tableName;
@@ -126,12 +160,33 @@ public class HiveJdbcClient {
         }
     }
 
-    private static void showTables(Statement stmt, String tableName) throws SQLException {
-        String sql = "show tables '" + tableName + "'";
+    public void showTables(Statement stmt) throws SQLException {
+        String sql = "show tables";
         System.out.println("Running: " + sql);
         ResultSet res = stmt.executeQuery(sql);
         if (res.next()) {
             System.out.println(res.getString(1));
         }
     }
+
+    /* */
+
+    public void dropTable(Statement stmt, String tableName) throws SQLException {
+        exec(stmt, "drop table if exists " + tableName);
+    }
+
+    public void createTable(Statement stmt, String tableName, String schema) throws SQLException {
+        //exec(stmt, "create table if not exists " + tableName );
+        exec(stmt, "create table " + tableName + " " + schema);
+    }
+
+    
+    /* */
+
+    public void exec(Statement stmt, String command) throws SQLException {
+        System.out.print("exec: " + command);
+        stmt.execute(command);
+        System.out.println("  /");
+    }
+
 }
