@@ -1,7 +1,7 @@
 <configuration>
   <property>
     <name>hbase.rootdir</name>
-    <value>hdfs://172.16.255.131:8020/hbase</value>
+    <value>hdfs://172.16.255.136:8020/hbase</value>
   </property>
 
 <!--   <property> -->
@@ -21,10 +21,10 @@
 <!-- 		<value>2181</value> -->
 <!-- 	</property> -->
 
-<!-- 	<property> -->
-<!-- 		<name>hbase.zookeeper.quorum</name> -->
-<!-- 		<value> -->
-<!-- 			<value>172.16.255.131</value> -->
-<!-- 		</value> -->
-<!-- 	</property> -->
+	<property>
+		<name>hbase.zookeeper.quorum</name>
+		<value>
+			<value>172.16.255.136</value>
+		</value>
+	</property>
 </configuration>

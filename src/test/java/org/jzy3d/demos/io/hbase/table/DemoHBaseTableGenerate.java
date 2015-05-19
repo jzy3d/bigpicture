@@ -29,17 +29,17 @@ public class DemoHBaseTableGenerate {
     public static void main(String[] args) throws Exception {
         int nRaws = MILLION / 100;
         int nPivotTheme = 8;
-        int nPivotCol = 15 * nPivotTheme;
-        int nCpCcCat = 12;
-        int nCpCcCol = 10;
+        int nPivotCol = 5 * nPivotTheme;
+        int nCpCcCat = 5;
+        int nCpCcCol = 4;
 
         // Generate table data
         GeneratorKeyValue generator = new GeneratorKeyValue();
         final List<List<KeyVal<String, Float>>> rows = generator.vip(nRaws, nPivotCol, nCpCcCat, nCpCcCol);
 
-        //hbaseDump(rows);
+        hbaseDump(rows);
         
-        draw(rows);
+        //draw(rows);
     }
 
     private static void draw(final List<List<KeyVal<String, Float>>> rows) {

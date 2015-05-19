@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.jzy3d.io.Config;
+
 /**
  * export HIVE_CONF_DIR=/Users/martin/Dev/hadoop/spark/spark-trials
  * 
@@ -89,7 +91,11 @@ public class HiveJdbcClient {
             e.printStackTrace();
         }
     }
-
+    
+    public Connection connect(Config.HiveConnection connection) throws SQLException {
+        return connect(connection.ip, connection.port, connection.domain, connection.user, connection.password);
+    }
+    
     public Connection connect(String ip, String port, String domain, String user, String password) throws SQLException {
         String url = "jdbc:hive2://" + ip + ":" + port + "/default";
         System.out.print("connecting to " + url);

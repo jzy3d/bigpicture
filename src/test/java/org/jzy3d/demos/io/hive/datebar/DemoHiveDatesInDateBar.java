@@ -13,22 +13,21 @@ import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
 import org.jzy3d.demos.drawing.datebar.HistogramDate;
 import org.jzy3d.demos.drawing.datebar.HistogramDate2d;
+import org.jzy3d.io.Config;
 import org.jzy3d.io.hive.jdbc.HiveJdbcClient;
 import org.jzy3d.maths.TicToc;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
 public class DemoHiveDatesInDateBar {
-    static String ip = "172.16.255.136";
-    static String port = "10000";
-    static String domain = "default";
-    static String user = "root";
-    static String password = "hadoop";
+    
+    static Config.HiveConnection connectionSettings = new Config.HiveConnection("172.16.255.136", "default", "root", "hadoop");
+
     static String table = "employee_logins";
     
     public static Type dims = Type.dd;
 
     public static void main(String[] args) throws SQLException {
-        List<DateTime> events = getDates(ip, port, domain, user, password, table);
+        List<DateTime> events = getDates(connectionSettings, table);
         System.out.println("read " + events.size() + " events");
 
         plot(events);
@@ -51,9 +50,9 @@ public class DemoHiveDatesInDateBar {
         histogram.layout(chart);
     }
 
-    public static List<DateTime> getDates(String ip, String port, String domain, String user, String password, String table) throws SQLException {
+    public static List<DateTime> getDates(Config.HiveConnection connectionSettings, String table) throws SQLException {
         HiveJdbcClient hive = new HiveJdbcClient();
-        Statement stmt = hive.connect(ip, port, domain, user, password).createStatement();
+        Statement stmt = hive.connect(connectionSettings).createStatement();
 
         List<DateTime> dates = new ArrayList<DateTime>();
         ResultSet rs = hive.selectAll(stmt, table);

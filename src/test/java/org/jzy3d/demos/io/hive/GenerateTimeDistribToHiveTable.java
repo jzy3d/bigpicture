@@ -7,6 +7,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.jzy3d.demos.drawing.datebar.DateTimeGenerator;
 import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
+import org.jzy3d.io.Config;
 import org.jzy3d.io.hive.jdbc.HiveJdbcClient;
 
 public class GenerateTimeDistribToHiveTable {
@@ -22,6 +23,8 @@ public class GenerateTimeDistribToHiveTable {
     static boolean createTable = false;
     static boolean insert = true;
     static boolean print = false;
+    
+    static Config.HiveConnection connectionSettings = new Config.HiveConnection("172.16.255.136", "default", "root", "hadoop");
 
     public static void main(String[] args) throws SQLException {
         String ip = "172.16.255.136";
@@ -31,7 +34,7 @@ public class GenerateTimeDistribToHiveTable {
         String password = "hadoop";
 
         HiveJdbcClient hive = new HiveJdbcClient();
-        Statement stmt = hive.connect(ip, port, domain, user, password).createStatement();
+        Statement stmt = hive.connect(connectionSettings).createStatement();
 
         if (insert) {
             if (createTable)
