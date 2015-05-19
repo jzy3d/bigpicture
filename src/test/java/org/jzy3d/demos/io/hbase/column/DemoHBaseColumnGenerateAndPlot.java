@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jzy3d.chart.Chart;
-import org.jzy3d.chart.factories.AWTChartComponentFactory;
-import org.jzy3d.chart.factories.IChartComponentFactory.Toolkit;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.drawing.vbo.barmodel.builder.VBOBuilderLineStrip;
 import org.jzy3d.maths.Histogram;

@@ -5,7 +5,6 @@ import java.util.List;
 import org.jzy3d.io.KeyVal;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 
 public class DefaultTableScanScheduler {
     List<List<KeyVal<String,Float>>> table;

@@ -7,8 +7,6 @@ import org.apache.spark.api.java.JavaRDD;
 import org.jzy3d.chart.spark.SparkRDDChartBuilderJavaFX;
 import org.jzy3d.io.spark.SparkChartIO;
 import org.jzy3d.maths.Coord3d;
-import org.jzy3d.plot2d.primitives.ScatterPointSerie2d;
-import org.jzy3d.plot2d.primitives.Serie2d;
 
 /**
  * Shows a 2D scatter plot given by a spark RDD loaded from a CSV file.

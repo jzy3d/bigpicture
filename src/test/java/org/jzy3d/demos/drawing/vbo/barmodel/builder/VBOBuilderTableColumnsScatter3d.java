@@ -10,7 +10,6 @@ import org.jzy3d.demos.drawing.vbo.barmodel.color.KeyRankColorMapper;
 import org.jzy3d.io.KeyVal;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
-import org.jzy3d.plot3d.primitives.vbo.buffers.VBO;
 import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilder;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 

@@ -13,7 +13,6 @@ import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
 import org.jzy3d.demos.drawing.datebar.HistogramDate;
 import org.jzy3d.demos.drawing.datebar.HistogramDate2d;
-import org.jzy3d.demos.io.hive.GenerateTimeDistribToHiveTable;
 import org.jzy3d.io.hive.jdbc.HiveJdbcClient;
 import org.jzy3d.maths.TicToc;
 import org.jzy3d.plot3d.rendering.canvas.Quality;

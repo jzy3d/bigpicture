@@ -1,10 +1,8 @@
 package org.jzy3d.demos.drawing.datebar;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.jblas.util.Random;
 import org.joda.time.DateTime;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.colors.Color;
@@ -12,7 +10,6 @@ import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
 import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
 import org.jzy3d.maths.TicToc;
-import org.jzy3d.plot3d.primitives.axes.AxeBox;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
 // WARN : readability of bins will depend on time interval : very large interval = small bins
