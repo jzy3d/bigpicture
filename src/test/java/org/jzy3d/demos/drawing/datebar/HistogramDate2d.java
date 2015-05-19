@@ -36,8 +36,8 @@ import org.jzy3d.plot3d.transform.space.SpaceTransformer;
  */
 public class HistogramDate2d {
     static DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy/MM/dd");
-    static DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("hh:mm:ss");
-    static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormat.forPattern("yyyy/MM/dd hh:mm:ss");
+    static DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH:mm:ss");
+    static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss");
 
     protected HistogramDate model;
     protected AbstractComposite drawable;
@@ -69,7 +69,7 @@ public class HistogramDate2d {
         int n = 5;
         
         layoutAxeLabels(axeLayout, DATE_FORMATTER.print(getCentralDateRange().min));
-        layoutAxeDateAnnotations(axe, n);
+        layoutAxeDateAnnotations(chart, axe, n);
         layoutAxeX(axeLayout);
         layoutAxeY(axeLayout, ticks);
         layoutAxeColor(axeLayout);
@@ -97,7 +97,7 @@ public class HistogramDate2d {
         axeLayout.setTickLineDisplayed(true);
     }
 
-    private void layoutAxeDateAnnotations(AxeBox axe, int n) {
+    private void layoutAxeDateAnnotations(Chart chart, AxeBox axe, int n) {
         for (int i = 0; i < model.ranges().length; i++) {
             if (i % n != 0)
                 continue;
@@ -105,6 +105,7 @@ public class HistogramDate2d {
             String s = DATETIME_FORMATTER.print(range.min);
             AxeTextAnnotation ata = new AxeTextAnnotation(s, new Coord3d(i, 0, 0));
             axe.addAnnotation(ata);
+            ata.setRenderer3d(chart.getCanvas().getRenderer());
         }
     }
 

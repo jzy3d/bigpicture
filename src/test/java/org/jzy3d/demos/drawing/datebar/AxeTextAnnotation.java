@@ -13,6 +13,7 @@ import org.jzy3d.plot3d.primitives.axes.AxeAnnotation;
 import org.jzy3d.plot3d.primitives.axes.AxeBox;
 import org.jzy3d.plot3d.rendering.compat.GLES2CompatUtils;
 import org.jzy3d.plot3d.rendering.textures.BufferedImageTexture;
+import org.jzy3d.plot3d.rendering.view.Renderer3d;
 import org.jzy3d.plot3d.text.align.Halign;
 import org.jzy3d.plot3d.text.drawable.cells.TextCellRenderer;
 
@@ -31,11 +32,13 @@ import com.jogamp.opengl.util.texture.TextureCoords;
  */
 public class AxeTextAnnotation implements AxeAnnotation {
     protected Font font;
-    protected TextCellRenderer renderer;
+    protected TextCellRenderer cellRenderer;
     protected BufferedImageTexture resource = null;
     protected Coord3d pos = null;
     protected Color filter = Color.WHITE.clone();
     protected boolean horizontal = false;// only vertical OK
+    
+    protected Renderer3d renderer3d;
 
     static boolean CELL_HAS_BORDER = false;
     /**
@@ -51,15 +54,15 @@ public class AxeTextAnnotation implements AxeAnnotation {
 
     private void makeRenderer(String string) {
         font = new Font("Arial", Font.PLAIN, FONT_SIZE);
-        renderer = new TextCellRenderer(6, string, font);// date 5
-        renderer.setHorizontalAlignement(Halign.LEFT);
-        renderer.setTextColor(java.awt.Color.GRAY);
-        renderer.setBorderDisplayed(CELL_HAS_BORDER);
+        cellRenderer = new TextCellRenderer(5, string, font);// date 5
+        cellRenderer.setHorizontalAlignement(Halign.LEFT);
+        cellRenderer.setTextColor(java.awt.Color.GRAY);
+        cellRenderer.setBorderDisplayed(CELL_HAS_BORDER);
     }
 
     public void draw(GL gl, AxeBox axe) {
         if (resource == null) {
-            resource = renderer.getImage();
+            resource = cellRenderer.getImage();
             resource.mount(gl);
         }
         Texture texture = resource.getTexture(gl);
@@ -114,10 +117,19 @@ public class AxeTextAnnotation implements AxeAnnotation {
         float worldHeight = yrange / 6;
         float worldWidth = 1;
         float textureRatio = ((float) texture.getWidth() / (float) texture.getHeight());
+        float rendererRatio = Float.NaN;
+        
+        if(renderer3d!=null){
+            rendererRatio = (float)renderer3d.getHeight() / (float)renderer3d.getWidth();
+        }
+        float scaleRatio = axe.getScale().y / axe.getScale().x;
         if (horizontal) {
-            worldWidth = worldHeight * textureRatio * axe.getScale().y / axe.getScale().x;
+            worldWidth = worldHeight * textureRatio * scaleRatio;
         } else {
-            worldWidth = worldHeight * (1 / textureRatio) * axe.getScale().y / axe.getScale().x;
+            worldWidth = worldHeight * (1 / textureRatio) * scaleRatio;
+            if(!Float.isNaN(rendererRatio))
+                worldWidth*=rendererRatio;
+            //System.out.println("rendererRatio : " + rendererRatio);
         }
 
         Mapping mapping = new Mapping();
@@ -195,4 +207,14 @@ public class AxeTextAnnotation implements AxeAnnotation {
             GLES2CompatUtils.glColor4f(c.r, c.g, c.b, c.a * alpha);
         }
     }
+
+    public Renderer3d getRenderer3d() {
+        return renderer3d;
+    }
+
+    public void setRenderer3d(Renderer3d renderer3d) {
+        this.renderer3d = renderer3d;
+    }
+    
+    
 }

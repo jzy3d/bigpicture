@@ -24,13 +24,14 @@ public class DemoHiveDatesInDateBar {
     static String domain = "default";
     static String user = "root";
     static String password = "hadoop";
-
+    static String table = "employee_logins";
+    
     public static Type dims = Type.dd;
 
     public static void main(String[] args) throws SQLException {
         // Read
-        List<DateTime> events = getDates(ip, port, domain, user, password);
-System.out.println("read " + events.size() + " events");
+        List<DateTime> events = getDates(ip, port, domain, user, password, table);
+        System.out.println("read " + events.size() + " events");
         plot(events);
     }
 
@@ -51,13 +52,13 @@ System.out.println("read " + events.size() + " events");
         histogram.layout(chart);
     }
 
-    public static List<DateTime> getDates(String ip, String port, String domain, String user, String password) throws SQLException {
+    public static List<DateTime> getDates(String ip, String port, String domain, String user, String password, String table) throws SQLException {
         // connect
         HiveJdbcClient hive = new HiveJdbcClient();
         Statement stmt = hive.connect(ip, port, domain, user, password).createStatement();
 
         List<DateTime> dates = new ArrayList<DateTime>();
-        ResultSet rs = hive.selectAll(stmt, GenerateTimeDistribToHiveTable.TABLE);
+        ResultSet rs = hive.selectAll(stmt, table);
         while (rs.next()) {
             String value = rs.getString(1);
             dates.add(new DateTime(value));
