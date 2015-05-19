@@ -29,9 +29,9 @@ public class DemoHiveDatesInDateBar {
     public static Type dims = Type.dd;
 
     public static void main(String[] args) throws SQLException {
-        // Read
         List<DateTime> events = getDates(ip, port, domain, user, password, table);
         System.out.println("read " + events.size() + " events");
+
         plot(events);
     }
 
@@ -53,7 +53,6 @@ public class DemoHiveDatesInDateBar {
     }
 
     public static List<DateTime> getDates(String ip, String port, String domain, String user, String password, String table) throws SQLException {
-        // connect
         HiveJdbcClient hive = new HiveJdbcClient();
         Statement stmt = hive.connect(ip, port, domain, user, password).createStatement();
 
