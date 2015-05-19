@@ -26,10 +26,15 @@ public class HiveJdbcClient {
         // String user = "root";
         // String password = "hadoop";
 
-        String ip = "172.16.255.131";
+        /*
+         * String ip = "172.16.255.131"; String port = "10000"; String domain =
+         * "default"; String user = "train"; String password = "hadoop";
+         */
+
+        String ip = "172.16.255.136";
         String port = "10000";
         String domain = "default";
-        String user = "train";
+        String user = "root";
         String password = "hadoop";
         // actions
         boolean load = false;
@@ -95,20 +100,23 @@ public class HiveJdbcClient {
 
     /* */
 
-    /*public void insert(Statement stmt) throws SQLException {
-        exec(stmt, "drop table if exists test");
-        exec(stmt, "create table if not exists test(a int, b int) row format delimited fields terminated by ' '");
-
-        exec(stmt, "drop table if exists dual");
-        exec(stmt, "create table dual as select 1 as one from test");
-
-        exec(stmt, "insert into table test select stack(1,4,5) AS (a,b) from dual");
-
-            // String q2 = "select * from (values(" + key + ", '" + value +
-        // "')) as t";
-        // q = q + " (" + q2 + ")";
-
-    }*/
+    /*
+     * public void insert(Statement stmt) throws SQLException { exec(stmt,
+     * "drop table if exists test"); exec(stmt,
+     * "create table if not exists test(a int, b int) row format delimited fields terminated by ' '"
+     * );
+     * 
+     * exec(stmt, "drop table if exists dual"); exec(stmt,
+     * "create table dual as select 1 as one from test");
+     * 
+     * exec(stmt,
+     * "insert into table test select stack(1,4,5) AS (a,b) from dual");
+     * 
+     * // String q2 = "select * from (values(" + key + ", '" + value + //
+     * "')) as t"; // q = q + " (" + q2 + ")";
+     * 
+     * }
+     */
 
     public void insertInto(Statement stmt, String tableName, int key, String value) throws SQLException {
         String q = "insert into table " + tableName;
@@ -129,15 +137,21 @@ public class HiveJdbcClient {
         }
     }
 
-    public void selectAll(Statement stmt, String tableName) throws SQLException {
+    public ResultSet selectAll(Statement stmt, String tableName) throws SQLException {
+        return selectAll(stmt,  tableName, false);
+    }
+
+    public ResultSet selectAll(Statement stmt, String tableName, boolean print) throws SQLException {
         String sql;
         ResultSet res;
         sql = "select * from " + tableName;
         System.out.println("Running: " + sql);
         res = stmt.executeQuery(sql);
-        while (res.next()) {
-            System.out.println(String.valueOf(res.getInt(1)) + "\t" + res.getString(2));
-        }
+        if (print)
+            while (res.next()) {
+                System.out.println(String.valueOf(res.getInt(1)) + "\t" + res.getString(2));
+            }
+        return res;
     }
 
     // NOTE: filepath has to be local to the hive server
@@ -176,14 +190,17 @@ public class HiveJdbcClient {
     }
 
     public void createTable(Statement stmt, String tableName, String schema) throws SQLException {
-        //exec(stmt, "create table if not exists " + tableName );
+        // exec(stmt, "create table if not exists " + tableName );
         exec(stmt, "create table " + tableName + " " + schema);
     }
 
-    
     /* */
 
     public void exec(Statement stmt, String command) throws SQLException {
+        exec(stmt, command, true);
+    }
+
+    public void exec(Statement stmt, String command, boolean print) throws SQLException {
         System.out.print("exec: " + command);
         stmt.execute(command);
         System.out.println("  /");

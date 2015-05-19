@@ -1,4 +1,4 @@
-package org.jzy3d.works.chart2d.bar.time;
+package org.jzy3d.demos.datebar;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,11 +49,9 @@ public class HistogramDate {
         public String toString(){
             if(FORMATTER.print(min).equals(FORMATTER.print(max))){
                 return FORMATTER.print(min) + " to " + FORMATTER.print(max) + " *";
-                
             }
             return FORMATTER.print(min) + " to " + FORMATTER.print(max);
         }
-        
     }
     static DateTimeFormatter FORMATTER = DateTimeFormat.forPattern("yyyy/MM/dd hh:mm:ss");
 
@@ -91,14 +89,18 @@ public class HistogramDate {
             diff = diffSec;
         }
 
+        //consoleDiffs(diffDay, diffHou, diffMin, diffSec, diff);
+
+        return diff;
+    }
+
+    private void consoleDiffs(int diffDay, int diffHou, int diffMin, int diffSec, int diff) {
         System.out.println("days : " + diffDay);
         System.out.println("hours : " + diffHou);
         System.out.println("minutes : " + diffMin);
         System.out.println("secondes : " + diffSec);
         System.out.println("time mode : " + timeMode);
         System.out.println("diff : " + diff);
-
-        return diff;
     }
 
     private void makeTimeBins(DateTime dmin, DateTime dmax, int diff) {
@@ -110,7 +112,7 @@ public class HistogramDate {
             DateTime next = computeBinEnd(rmin, timeMode);
 
             ranges[i] = new DateRange(rmin, next);
-            System.out.println(ranges[i]);
+            //System.out.println(ranges[i]);
             data.put(ranges[i], 0);
             rmin = next;
         }
@@ -200,7 +202,22 @@ public class HistogramDate {
         }
         return max;
     }
+    
+    
 
+    
+    public TimeMode getTimeMode() {
+        return timeMode;
+    }
+
+    public DateRange[] getRanges() {
+        return ranges;
+    }
+
+    public Map<DateRange, Integer> getData() {
+        return data;
+    }
+    
     /* */
 
     public static DateTime min(List<DateTime> events) {

@@ -9,8 +9,11 @@ import javax.media.opengl.GLProfile;
 
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
+import org.jzy3d.maths.BoundingBox3d;
 import org.jzy3d.maths.Rectangle;
 import org.jzy3d.plot3d.primitives.AbstractDrawable;
+import org.jzy3d.plot3d.primitives.axes.AxeBox;
+import org.jzy3d.plot3d.primitives.axes.IAxe;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.jzy3d.plot3d.rendering.view.AWTRenderer3d;
@@ -23,6 +26,7 @@ import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 
 public class BigPicture {
     public static String TITLE = "BigPicture";
+    public static Quality DEFAULT_QUALITY = Quality.Advanced;
 
     public enum Type {
         /** 2D */
@@ -30,26 +34,30 @@ public class BigPicture {
         ddd
     }
 
+    public static Chart chart(AbstractDrawable drawable, Type type, Quality quality) {
+        return chart(drawable, type, "awt", false, new Rectangle(1000, 1000), quality);
+    }
+
     public static Chart chart(AbstractDrawable drawable, Type type) {
-        return chart(drawable, type, "awt", false, new Rectangle(1000, 1000));
+        return chart(drawable, type, "awt", false, new Rectangle(1000, 1000), DEFAULT_QUALITY);
     }
 
     public static Chart chartBlack(AbstractDrawable drawable, Type type) {
-        return chart(drawable, type, "awt", true, new Rectangle(1000, 1000));
+        return chart(drawable, type, "awt", true, new Rectangle(1000, 1000), DEFAULT_QUALITY);
     }
 
     public static Chart offscreen(AbstractDrawable drawable, Type type) {
-        return chart(drawable, type, "offscreen,"+1000+"," + 1000, false, null);
+        return chart(drawable, type, "offscreen,"+1000+"," + 1000, false, null, DEFAULT_QUALITY);
     }
 
     
     public static Chart offscreen(AbstractDrawable drawable, Type type, int width, int height) {
-        return chart(drawable, type, "offscreen,"+width+"," + height, false, null);
+        return chart(drawable, type, "offscreen,"+width+"," + height, false, null, DEFAULT_QUALITY);
     }
 
     
     public static Chart screenshot(AbstractDrawable drawable, Type type, int width, int height, File output) throws IOException {
-        Chart chart = chart(drawable, type, "offscreen,"+width+"," + height, false, null);
+        Chart chart = chart(drawable, type, "offscreen,"+width+"," + height, false, null, DEFAULT_QUALITY);
         screenshot(chart, output);
         return chart;
     }
@@ -65,7 +73,7 @@ public class BigPicture {
 
 
     @SuppressWarnings("static-access")
-    public static Chart chart(AbstractDrawable drawable, Type type, String wt, boolean black, Rectangle rect) {
+    public static Chart chart(AbstractDrawable drawable, Type type, String wt, boolean black, Rectangle rect, Quality quality) {
         Chart chart = null;//AWTChartComponentFactory.chart(Quality.Intermediate, wt);
         chart = new AWTChartComponentFactory(){
             @Override
@@ -92,7 +100,20 @@ public class BigPicture {
 
                 };
             }
-        }.chart(Quality.Advanced, wt);
+            
+            @Override
+            public IAxe newAxe(BoundingBox3d box, View view) {
+                AxeBox axe = new AxeBox(box);
+                axe.setView(view);
+//                axe.setTextRenderer(new JOGLTextRenderer());
+                return axe;
+            }
+        }.chart(quality, wt);
+        
+        AxeBox axe = (AxeBox)chart.getView().getAxe();
+//        axe.setTextRenderer(new TxtRender());
+        //axe.setTextRenderer(new JOGLTextRenderer());
+        
         
         chart.getScene().getGraph().add(drawable);
         if (black)
