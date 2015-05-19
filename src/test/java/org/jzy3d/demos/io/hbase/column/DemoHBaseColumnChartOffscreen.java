@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.jzy3d.demos.BigPicture;
-import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderLineStrip;
+import org.jzy3d.demos.drawing.vbo.barmodel.builder.VBOBuilderLineStrip;
 import org.jzy3d.io.hbase.HBaseIO;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 

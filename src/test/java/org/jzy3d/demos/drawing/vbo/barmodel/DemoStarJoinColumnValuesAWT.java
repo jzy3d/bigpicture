@@ -1,7 +1,7 @@
-package org.jzy3d.demos.vbo.barmodel;
+package org.jzy3d.demos.drawing.vbo.barmodel;
 
 import org.jzy3d.demos.BigPicture;
-import org.jzy3d.demos.vbo.barmodel.generators.GeneratorStarJoin;
+import org.jzy3d.demos.drawing.vbo.barmodel.generators.GeneratorStarJoin;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 
 /**

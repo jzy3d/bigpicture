@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel.color;
+package org.jzy3d.demos.drawing.vbo.barmodel.color;
 
 import java.util.HashMap;
 import java.util.List;

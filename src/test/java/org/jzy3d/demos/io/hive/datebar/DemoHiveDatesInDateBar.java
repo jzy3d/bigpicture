@@ -1,4 +1,4 @@
-package org.jzy3d.demos.io.hive;
+package org.jzy3d.demos.io.hive.datebar;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +11,14 @@ import org.jzy3d.chart.Chart;
 import org.jzy3d.colors.Color;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
-import org.jzy3d.demos.datebar.HistogramDate;
-import org.jzy3d.demos.datebar.HistogramDate2d;
+import org.jzy3d.demos.drawing.datebar.HistogramDate;
+import org.jzy3d.demos.drawing.datebar.HistogramDate2d;
+import org.jzy3d.demos.io.hive.GenerateTimeDistribToHiveTable;
 import org.jzy3d.io.hive.jdbc.HiveJdbcClient;
 import org.jzy3d.maths.TicToc;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
-public class ReadHiveDateTimeAndBarTime {
+public class DemoHiveDatesInDateBar {
     static String ip = "172.16.255.136";
     static String port = "10000";
     static String domain = "default";

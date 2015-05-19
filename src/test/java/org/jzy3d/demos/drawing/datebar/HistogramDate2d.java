@@ -1,11 +1,11 @@
-package org.jzy3d.demos.datebar;
+package org.jzy3d.demos.drawing.datebar;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.jzy3d.chart.Chart;
 import org.jzy3d.colors.Color;
-import org.jzy3d.demos.datebar.HistogramDate.DateRange;
-import org.jzy3d.demos.datebar.HistogramDate.TimeMode;
+import org.jzy3d.demos.drawing.datebar.HistogramDate.DateRange;
+import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.AbstractComposite;
 import org.jzy3d.plot3d.primitives.Point;

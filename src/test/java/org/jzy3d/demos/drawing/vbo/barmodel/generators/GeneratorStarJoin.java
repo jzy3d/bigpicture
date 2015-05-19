@@ -1,8 +1,8 @@
-package org.jzy3d.demos.vbo.barmodel.generators;
+package org.jzy3d.demos.drawing.vbo.barmodel.generators;
 
 import java.util.List;
 
-import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderTableColumnsScatter3d;
+import org.jzy3d.demos.drawing.vbo.barmodel.builder.VBOBuilderTableColumnsScatter3d;
 import org.jzy3d.io.KeyVal;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 

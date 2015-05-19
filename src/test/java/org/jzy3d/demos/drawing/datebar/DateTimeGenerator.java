@@ -1,11 +1,11 @@
-package org.jzy3d.demos.datebar;
+package org.jzy3d.demos.drawing.datebar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jblas.util.Random;
 import org.joda.time.DateTime;
-import org.jzy3d.demos.datebar.HistogramDate.TimeMode;
+import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
 
 public class DateTimeGenerator {
 

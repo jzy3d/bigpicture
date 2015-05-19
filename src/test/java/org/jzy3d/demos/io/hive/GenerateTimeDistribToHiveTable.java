@@ -5,8 +5,8 @@ import java.sql.Statement;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.jzy3d.demos.datebar.DateTimeGenerator;
-import org.jzy3d.demos.datebar.HistogramDate.TimeMode;
+import org.jzy3d.demos.drawing.datebar.DateTimeGenerator;
+import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
 import org.jzy3d.io.hive.jdbc.HiveJdbcClient;
 
 public class GenerateTimeDistribToHiveTable {
@@ -14,7 +14,7 @@ public class GenerateTimeDistribToHiveTable {
 
     public static int MILLION = 1000000;
     public static int N = (int) (1 * MILLION);
-    public static TimeMode timeMode = TimeMode.HOUR;// SECOND MIGHT FAIL
+    public static TimeMode timeMode = TimeMode.HOUR;
     public static int WIDTH = 10;
     public static int N_EARLY = 2;
 
@@ -49,7 +49,7 @@ public class GenerateTimeDistribToHiveTable {
                     sb.append(", ");
                 }
             }
-            hive.exec(stmt, sb.toString());
+            hive.exec(stmt, sb.toString(), false);
 
             hive.count(stmt, TABLE);
             if(print){

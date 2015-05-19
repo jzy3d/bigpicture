@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.bar;
+package org.jzy3d.demos.drawing.vbo.bar;
 
 import javax.media.opengl.GL;
 

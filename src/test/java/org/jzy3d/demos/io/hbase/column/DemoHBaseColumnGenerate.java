@@ -3,8 +3,8 @@ package org.jzy3d.demos.io.hbase.column;
 import java.util.List;
 
 import org.jzy3d.demos.BigPicture;
-import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderTableColumnsScatter3d;
-import org.jzy3d.demos.vbo.barmodel.generators.GeneratorKeyValue;
+import org.jzy3d.demos.drawing.vbo.barmodel.builder.VBOBuilderTableColumnsScatter3d;
+import org.jzy3d.demos.drawing.vbo.barmodel.generators.GeneratorKeyValue;
 import org.jzy3d.io.KeyVal;
 import org.jzy3d.io.Progress;
 import org.jzy3d.io.hbase.HBaseIO;

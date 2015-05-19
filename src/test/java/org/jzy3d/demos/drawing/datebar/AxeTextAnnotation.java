@@ -1,4 +1,4 @@
-package org.jzy3d.demos.datebar;
+package org.jzy3d.demos.drawing.datebar;
 
 import java.awt.Font;
 

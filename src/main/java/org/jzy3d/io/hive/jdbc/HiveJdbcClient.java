@@ -138,7 +138,7 @@ public class HiveJdbcClient {
     }
 
     public ResultSet selectAll(Statement stmt, String tableName) throws SQLException {
-        return selectAll(stmt,  tableName, false);
+        return selectAll(stmt, tableName, false);
     }
 
     public ResultSet selectAll(Statement stmt, String tableName, boolean print) throws SQLException {
@@ -201,9 +201,11 @@ public class HiveJdbcClient {
     }
 
     public void exec(Statement stmt, String command, boolean print) throws SQLException {
-        System.out.print("exec: " + command);
+        if (print)
+            System.out.print("exec: " + command);
         stmt.execute(command);
-        System.out.println("  /");
+        if (print)
+            System.out.println("  /");
     }
 
 }

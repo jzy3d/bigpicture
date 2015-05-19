@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.bar;
+package org.jzy3d.demos.drawing.vbo.bar;
 
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.plot3d.primitives.vbo.drawable.BarVBO;

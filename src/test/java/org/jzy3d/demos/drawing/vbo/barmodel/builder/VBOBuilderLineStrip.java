@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel.builder;
+package org.jzy3d.demos.drawing.vbo.barmodel.builder;
 
 import java.util.List;
 

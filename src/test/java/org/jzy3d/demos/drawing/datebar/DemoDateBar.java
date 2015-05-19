@@ -1,4 +1,4 @@
-package org.jzy3d.demos.datebar;
+package org.jzy3d.demos.drawing.datebar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import org.jzy3d.chart.Chart;
 import org.jzy3d.colors.Color;
 import org.jzy3d.demos.BigPicture;
 import org.jzy3d.demos.BigPicture.Type;
-import org.jzy3d.demos.datebar.HistogramDate.TimeMode;
+import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
 import org.jzy3d.maths.TicToc;
 import org.jzy3d.plot3d.primitives.axes.AxeBox;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
@@ -18,7 +18,7 @@ import org.jzy3d.plot3d.rendering.canvas.Quality;
 // WARN : readability of bins will depend on time interval : very large interval = small bins
 // TODO : make log transform work : readable with 100 but not with 100.000
 // TODO : SHOULD force number of bins : here depends on number of steps in a given time range
-public class DemoTimeEventBarChart {
+public class DemoDateBar {
     // data generation
     public static int MILLION = 1000000;
     public static int N = (int) (0.1 * MILLION);

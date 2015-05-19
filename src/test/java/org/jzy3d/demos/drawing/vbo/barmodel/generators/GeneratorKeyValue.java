@@ -1,4 +1,4 @@
-package org.jzy3d.demos.vbo.barmodel.generators;
+package org.jzy3d.demos.drawing.vbo.barmodel.generators;
 
 import java.util.ArrayList;
 import java.util.Arrays;

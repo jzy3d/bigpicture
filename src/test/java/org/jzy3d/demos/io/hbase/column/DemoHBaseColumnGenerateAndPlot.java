@@ -9,7 +9,7 @@ import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.chart.factories.IChartComponentFactory.Toolkit;
 import org.jzy3d.demos.BigPicture;
-import org.jzy3d.demos.vbo.barmodel.builder.VBOBuilderLineStrip;
+import org.jzy3d.demos.drawing.vbo.barmodel.builder.VBOBuilderLineStrip;
 import org.jzy3d.maths.Histogram;
 import org.jzy3d.maths.Statistics;
 import org.jzy3d.plot2d.primitives.Histogram2d;
