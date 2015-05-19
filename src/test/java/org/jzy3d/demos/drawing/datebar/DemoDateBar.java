@@ -55,6 +55,7 @@ public class DemoDateBar {
         //chart.add(histogram2.getDrawable());
         //if (Type.dd.equals(dimensions))
             histogram.layout(chart);
+            chart.add(histogram.buildLine(hist));
         // chart.getView().setSquared(false);
         
         

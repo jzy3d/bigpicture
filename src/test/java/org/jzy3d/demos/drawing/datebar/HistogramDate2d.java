@@ -1,5 +1,8 @@
 package org.jzy3d.demos.drawing.datebar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.jzy3d.chart.Chart;
@@ -7,14 +10,16 @@ import org.jzy3d.colors.Color;
 import org.jzy3d.demos.drawing.datebar.HistogramDate.DateRange;
 import org.jzy3d.demos.drawing.datebar.HistogramDate.TimeMode;
 import org.jzy3d.maths.Coord3d;
+import org.jzy3d.maths.algorithms.interpolation.IInterpolator;
+import org.jzy3d.maths.algorithms.interpolation.algorithms.BernsteinInterpolator;
 import org.jzy3d.plot3d.primitives.AbstractComposite;
+import org.jzy3d.plot3d.primitives.LineStrip;
+import org.jzy3d.plot3d.primitives.LineStripInterpolated;
 import org.jzy3d.plot3d.primitives.Point;
 import org.jzy3d.plot3d.primitives.Polygon;
 import org.jzy3d.plot3d.primitives.axes.AxeBox;
 import org.jzy3d.plot3d.primitives.axes.layout.IAxeLayout;
-import org.jzy3d.plot3d.primitives.axes.layout.providers.RegularTickProvider;
 import org.jzy3d.plot3d.primitives.axes.layout.providers.StaticTickProvider;
-import org.jzy3d.plot3d.primitives.axes.layout.renderers.DateTickRenderer;
 import org.jzy3d.plot3d.transform.space.SpaceTransformLog;
 import org.jzy3d.plot3d.transform.space.SpaceTransformer;
 
@@ -39,6 +44,8 @@ public class HistogramDate2d {
 
     protected Color bodyColor = Color.MAGENTA;
     protected Color borderColor = Color.BLACK;
+    
+    protected Color lineColor = Color.BLUE;
 
     public HistogramDate2d(HistogramDate model) {
         setModel(model);
@@ -116,7 +123,7 @@ public class HistogramDate2d {
     
     /* MAKE DRAWABLE */
 
-    protected AbstractComposite buildDrawable(HistogramDate model) {
+    public AbstractComposite buildBarDrawable(HistogramDate model) {
         AbstractComposite c = new AbstractComposite() {
         };
         for (int i = 0; i < model.ranges().length; i++) {
@@ -126,6 +133,33 @@ public class HistogramDate2d {
             c.add(p);
         }
         return c;
+    }
+    
+    public LineStrip buildLine(HistogramDate model) {
+        List<Coord3d> controlPoints = new ArrayList<Coord3d>();
+        for (int i = 0; i < model.ranges().length; i++) {
+            int count = model.getCount(i);
+            controlPoints.add(new Coord3d(i, count, 0));
+        }
+
+        //IInterpolator i = new BernsteinInterpolator();
+        //LineStripInterpolated lsi = new LineStripInterpolated(i, controlPoints, 20);
+        LineStrip ls = new LineStrip(controlPoints);
+        ls.setWireframeColor(lineColor);
+        return ls;
+    }
+    
+    public AbstractComposite buildLineInterpolated(HistogramDate model) {
+        List<Coord3d> controlPoints = new ArrayList<Coord3d>();
+        for (int i = 0; i < model.ranges().length; i++) {
+            int count = model.getCount(i);
+            controlPoints.add(new Coord3d(i, count, 0));
+        }
+
+        IInterpolator i = new BernsteinInterpolator();
+        LineStripInterpolated lsi = new LineStripInterpolated(i, controlPoints, 20);
+        
+        return lsi;
     }
 
     /**
@@ -175,7 +209,7 @@ public class HistogramDate2d {
 
     public void setModel(HistogramDate model) {
         this.model = model;
-        this.drawable = buildDrawable(model);
+        this.drawable = buildBarDrawable(model);
     }
 
     public HistogramDate getModel() {
