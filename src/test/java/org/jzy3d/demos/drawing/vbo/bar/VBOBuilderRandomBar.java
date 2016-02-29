@@ -1,12 +1,12 @@
 package org.jzy3d.demos.drawing.vbo.bar;
 
-import javax.media.opengl.GL;
-
 import org.apache.log4j.Logger;
 import org.jzy3d.colors.ColorMapper;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
 import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilder;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
+
+import com.jogamp.opengl.GL;
 
 /**
  * A simple loader loading an existing collection of coordinates into a Vertex

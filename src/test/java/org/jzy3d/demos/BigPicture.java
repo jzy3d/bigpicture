@@ -3,10 +3,6 @@ package org.jzy3d.demos;
 import java.io.File;
 import java.io.IOException;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLProfile;
-
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.maths.BoundingBox3d;
@@ -22,6 +18,9 @@ import org.jzy3d.plot3d.rendering.view.View;
 import org.jzy3d.plot3d.rendering.view.ViewportMode;
 import org.jzy3d.plot3d.rendering.view.modes.ViewPositionMode;
 
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GLAutoDrawable;
+import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 
 public class BigPicture {

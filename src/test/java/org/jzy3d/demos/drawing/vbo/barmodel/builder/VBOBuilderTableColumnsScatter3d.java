@@ -2,8 +2,6 @@ package org.jzy3d.demos.drawing.vbo.barmodel.builder;
 
 import java.util.List;
 
-import javax.media.opengl.GL;
-
 import org.jzy3d.colors.Color;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
 import org.jzy3d.demos.drawing.vbo.barmodel.color.KeyRankColorMapper;
@@ -12,6 +10,8 @@ import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
 import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilder;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
+
+import com.jogamp.opengl.GL;
 
 /**
  * Building a VBO that represent a list of rows made of lists of

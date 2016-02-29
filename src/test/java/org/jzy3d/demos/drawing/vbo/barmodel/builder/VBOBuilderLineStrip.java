@@ -2,14 +2,14 @@ package org.jzy3d.demos.drawing.vbo.barmodel.builder;
 
 import java.util.List;
 
-import javax.media.opengl.GL;
-
 import org.jzy3d.colors.Color;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.plot3d.primitives.vbo.buffers.FloatVBO;
 import org.jzy3d.plot3d.primitives.vbo.builders.VBOBuilder;
 import org.jzy3d.plot3d.primitives.vbo.drawable.DrawableVBO;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
+
+import com.jogamp.opengl.GL;
 
 /**
  * @see Reminder of GL geometry types : http://www.glprogramming.com/red/images/Image34.gif

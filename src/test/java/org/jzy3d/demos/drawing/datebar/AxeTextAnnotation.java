@@ -2,10 +2,6 @@ package org.jzy3d.demos.drawing.datebar;
 
 import java.awt.Font;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2ES1;
-import javax.media.opengl.GL2GL3;
-
 import org.jzy3d.colors.Color;
 import org.jzy3d.maths.BoundingBox3d;
 import org.jzy3d.maths.Coord3d;
@@ -17,6 +13,9 @@ import org.jzy3d.plot3d.rendering.view.Renderer3d;
 import org.jzy3d.plot3d.text.align.Halign;
 import org.jzy3d.plot3d.text.drawable.cells.TextCellRenderer;
 
+import com.jogamp.opengl.GL;
+import com.jogamp.opengl.GL2ES1;
+import com.jogamp.opengl.GL2GL3;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureCoords;
 
