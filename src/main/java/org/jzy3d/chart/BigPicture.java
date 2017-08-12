@@ -112,7 +112,7 @@ public class BigPicture {
         if (black)
             chart.black();
         chart.getView().getCamera().setViewportMode(ViewportMode.STRETCH_TO_FILL);
-        chart.addMouseController();
+        chart.addMouseCameraController();
         if(!wt.contains("offscreen")){
             if (rect != null)
                 chart.open(TITLE, rect.width, rect.height);

@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import org.jzy3d.chart.AWTChart;
 import org.jzy3d.javafx.JavaFXChartFactory;
 import org.jzy3d.javafx.JavaFXRenderer3d;
-import org.jzy3d.javafx.controllers.JavaFXCameraMouseController;
+import org.jzy3d.javafx.controllers.mouse.JavaFXCameraMouseController;
 
 /**
  * Rendering is achieved by piping an offscreen calculated Jzy3d chart image to a JavaFX ImageView.

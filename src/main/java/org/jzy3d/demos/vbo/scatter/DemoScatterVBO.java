@@ -36,6 +36,6 @@ public class DemoScatterVBO {
         List<Coord3d> coords = ScatterGenerator.getScatter(size);
         ColorMapper coloring = ScatterGenerator.coloring(coords);
         ScatterVBO drawable = new ScatterVBO(new VBOBuilderListCoord3d(coords, coloring));
-        BigPicture.chart(drawable, Type.ddd);
+        BigPicture.chart(drawable, Type.ddd).white();
     }
 }
