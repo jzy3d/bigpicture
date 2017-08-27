@@ -3,7 +3,7 @@
 
 	<groupId>org.jzy3d</groupId>
 	<artifactId>jzy3d-bigpicture</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>Jzy3d BigPicture</name>
@@ -101,12 +101,12 @@
 		<dependency>
 			<groupId>org.jzy3d</groupId>
 			<artifactId>jzy3d-api</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jzy3d</groupId>
 			<artifactId>jzy3d-javafx</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- Joda -->
