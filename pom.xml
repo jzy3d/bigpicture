@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jzy3d</groupId>
@@ -10,24 +12,28 @@
 	<url>https://github.com/jzy3d/bigpicture</url>
 
 
-	  <distributionManagement>
-			<repository>
-	      <id>jzy3d-ftp</id>
-	      <name>Jzy3d Maven Folder</name>
-	      <url>ftp://ftp.cluster013.ovh.net/maven/releases</url>
-	    </repository>
-	    <snapshotRepository>
-	      <id>jzy3d-ftp</id>
-	      <name>Jzy3d Maven Folder SNAPSHOTS</name>
-	      <url>ftp://ftp.cluster013.ovh.net/maven/snapshots</url>
-	    </snapshotRepository>
-	  </distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>jzy3d-ftp</id>
+			<name>Jzy3d Maven Folder</name>
+			<url>ftp://ftp.cluster013.ovh.net/maven/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>jzy3d-ftp</id>
+			<name>Jzy3d Maven Folder SNAPSHOTS</name>
+			<url>ftp://ftp.cluster013.ovh.net/maven/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.mvn.ftp>1.0-beta-6</version.mvn.ftp>
 		<version.mvn.deploy>2.4</version.mvn.deploy>
+
+	    <version.java.source>1.8</version.java.source>
+	    <version.java.target>1.8</version.java.target>
+	    <version.mvn.compiler>3.0</version.mvn.compiler>
 
 	</properties>
 
@@ -39,12 +45,12 @@
 		<repository>
 			<id>jzy3d-snapshots</id>
 			<name>Jzy3d Snapshots</name>
-			<url>http://www.jzy3d.org/maven/snapshots</url>
+			<url>http://maven.jzy3d.org/snapshots</url>
 		</repository>
 		<repository>
 			<id>jzy3d-releases</id>
 			<name>Jzy3d Snapshots</name>
-			<url>http://www.jzy3d.org/maven/releases</url>
+			<url>http://maven.jzy3d.org/releases</url>
 		</repository>
 	</repositories>
 
@@ -71,6 +77,13 @@
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase-client</artifactId>
 			<version>1.0.0</version>
+			
+			<exclusions>
+		        <exclusion>
+		            <artifactId>jdk.tools</artifactId>
+		            <groupId>jdk.tools</groupId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
 
 		<!-- Hive -->
@@ -89,12 +102,14 @@
 			<artifactId>hive-cli</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
 		</dependency>
+
 
 
 		<!-- Jzy3d -->
@@ -130,21 +145,32 @@
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
-					<artifactId>wagon-ftp</artifactId>
-					<version>${version.mvn.ftp}</version>
+				<artifactId>wagon-ftp</artifactId>
+				<version>${version.mvn.ftp}</version>
 			</extension>
 		</extensions>
+		<plugins>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                  <version>${version.mvn.compiler}</version>
+                <configuration>
+                    <source>${version.java.source}</source>
+                    <target>${version.java.target}</target>
+                </configuration>
+            </plugin>
+		</plugins>
 	</build>
 
 	<profiles>
-      <profile>
-          <id>disable-java8-doclint</id>
-          <activation>
-              <jdk>[1.8,)</jdk>
-          </activation>
-          <properties>
-              <additionalparam>-Xdoclint:none</additionalparam>
-          </properties>
-      </profile>
-  </profiles>
+		<profile>
+			<id>disable-java8-doclint</id>
+			<activation>
+				<jdk>[1.8,)</jdk>
+			</activation>
+			<properties>
+				<additionalparam>-Xdoclint:none</additionalparam>
+			</properties>
+		</profile>
+	</profiles>
 </project>

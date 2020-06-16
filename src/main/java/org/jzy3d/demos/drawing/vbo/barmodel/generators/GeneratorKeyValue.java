@@ -21,7 +21,7 @@ public class GeneratorKeyValue {
     public List<KeyVal<String, Float>> vipRow(int nPivot, int nPivotCol, int nCpCcCat, int nCpCcCol) {
         List<KeyVal<String, Float>> row = new ArrayList<KeyVal<String, Float>>();
 
-        row.add(new KeyVal<String, Float>("0.pivot.id", (float) continuousId.value()));
+        //row.add(new KeyVal<String, Float>("0.pivot.id", (float) continuousId.value()));
 
         for (int i = 0; i < nPivotCol; i++) {
             float value = randomValue.value();

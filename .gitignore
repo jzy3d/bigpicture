@@ -4,6 +4,10 @@ target/
 data/random/random-500k.csv
 data/screenshots
 
+.classpath
+.project
+.settings
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
