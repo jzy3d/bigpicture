@@ -7,7 +7,7 @@ Jzy3d, based on JOGL, enables Java applications to use OpenGL to make best usage
 
 ## Demos
 
-See demos in package <a href="https://github.com/jzy3d/jzy3d-bigviz/blob/master/src/test/java/org/jzy3d/demos/">org.jzy3d.demos</a>
+See demos in package [`org.jzy3d.demos`](src/main/java/org/jzy3d/demos)
 
 
 
@@ -157,8 +157,7 @@ public class DemoTableAnalysis {
 
 <img src="doc/images/table-batch-report.png"/>
 
-
-https://github.com/jzy3d/bigpicture/blob/master/src/test/java/org/jzy3d/analysis/table/DemoTableAnalysis.java
+[`DemoTableAnalysis.java`](src/main/java/org/jzy3d/demos/analysis/table/DemoTableAnalysis.java)
 
 
 ## Utilities
